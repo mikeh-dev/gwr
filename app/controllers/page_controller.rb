@@ -1,5 +1,8 @@
 class PageController < ApplicationController
 
+	def home
+	end
+
 	def account_preferences
 		render layout: 'admin'
 	end
