@@ -7,7 +7,11 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.before_configuration do
+    # Configure Capybara to use Chrome as the driver
+    Capybara.server = :puma
+    Capybara.javascript_driver = :selenium_chrome_headless
+  end
   # Turn false under Spring and add config.action_view.cache_template_loading = true.
   config.cache_classes = true
 

@@ -17,6 +17,8 @@ module Gwr
       Devise::Mailer.layout "mailer"
     end
 
+    config.generators.test_framework :rspec
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
