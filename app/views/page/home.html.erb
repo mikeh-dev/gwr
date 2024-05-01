@@ -2,58 +2,7 @@
   <div class="absolute bg-gradient-to-br from-primary-500/20 to-secondary-500/20 via-violet/50 blur-3xl w-full h-[500px] z-0 opacity-40"></div>
 
   <div class="bg-cover h-auto z-40 relative">
-    <header class="py-4 container mx-auto px-4 text-[15px] lg:flex items-center justify-between" data-controller="dropdown">
-      <div class="lg:w-auto w-full flex items-center justify-between lg:space-x-3">
-        <%= link_to (defined?(root_path) ? root_path : "#"), class: "group" do %>
-          <svg
-            class="group-hover:brightness-105 group-hover:scale-95 transform ease-in-out duration-200 transition-transform group-hover:-rotate-2 text-zinc-900 fill-current w-10 h-10 dark:text-zinc-100"
-            width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M6 49C2.68629 49 4.04954e-06 46.3137 4.33923e-06 43L7.57388e-06 6C7.86357e-06 2.68629 2.6863 -2.34175e-07 6.00001 5.55182e-08L43 3.29016e-06C46.3137 3.57985e-06 49 2.68629 49 6L49 43C49 46.3137 46.3137 49 43 49L6 49ZM27.0487 7.19884C26.7537 7.15423 26.5152 7.4441 26.5152 7.74239L26.5152 14.1001C26.5152 17.1779 29.847 19.1015 32.5124 17.5626C33.4762 17.0062 34.7087 17.3364 35.2652 18.3002C35.8216 19.2641 35.4914 20.4965 34.5276 21.053C31.8332 22.6085 31.8332 26.4974 34.5276 28.053C35.4914 28.6095 35.8216 29.8419 35.2652 30.8057C34.7087 31.7696 33.4762 32.0998 32.5124 31.5433C29.847 30.0044 26.5151 31.9281 26.5151 35.0059L26.5151 36.5643C26.5151 39.5009 29.1413 41.8187 31.8044 40.5812C37.8253 37.7836 42 31.6824 42 24.6061C42 15.7849 35.5127 8.4789 27.0487 7.19884ZM6.78789 24.6061C6.78789 15.7175 13.3747 8.3674 21.9335 7.17056C22.2405 7.12763 22.4848 7.43239 22.4848 7.74239L22.4848 14.218C22.4848 17.2767 19.1737 19.1884 16.5247 17.6591C15.5609 17.1026 14.3284 17.4328 13.772 18.3967C13.2155 19.3605 13.5457 20.5929 14.5096 21.1494C17.1297 22.6621 17.1297 26.4439 14.5096 27.9566C13.5457 28.513 13.2155 29.7455 13.772 30.7093C14.3284 31.6732 15.5609 32.0034 16.5247 31.4469C19.1737 29.9175 22.4848 31.8293 22.4848 34.888L22.4848 36.5904C22.4848 39.5379 19.8674 41.8799 17.1792 40.6708C11.0533 37.9153 6.78789 31.7588 6.78789 24.6061Z" />
-          </svg>
-        <% end %>
-
-        <button class="lg:hidden block btn btn-white hover:bg-white px-3 dark:hover:bg-zinc-800" role="Mobile navigation toggle" data-action="click->dropdown#toggle click@window->dropdown#hide">
-          <%= icon "bars-3-center-left", classes: "stroke-current w-8 h-8 text-zinc-600 group-focus:text-primary-500 dark:text-zinc-200" %>
-        </button>
-      </div>
-      <div class="lg:flex hidden justify-between w-full" data-dropdown-target="menu"
-        data-transition-enter-active="transition ease-out duration-100"
-        data-transition-enter-from="transform opacity-0 scale-95" data-transition-enter-to="transform opacity-100 scale-100"
-        data-transition-leave-active="transition ease-in duration-100"
-        data-transition-leave-from="transform opacity-100 scale-100"
-        data-transition-leave-to="transform opacity-0 scale-95">
-        <nav class="flex-1" role="Primary navigation">
-          <ul
-            class="lg:flex items-center lg:space-x-3 lg:pl-8 lg:mt-0 mt-4 font-heading text-zinc-800 lg:text-[15px] text-lg">
-            <li>
-              <%= nav_link_to "Features", "#", inactive_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal dark:text-zinc-100 dark:hover:text-primary-500 dark:focus:ring-zinc-800", active_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal text-primary-600 dark:text-primary-500 dark:focus:ring-zinc-800" %>
-            </li>
-            <li>
-              <%= nav_link_to "Testimonials", "#", inactive_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal dark:text-zinc-100 dark:hover:text-primary-500 dark:focus:ring-zinc-800", active_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal text-primary-600 dark:text-primary-500 dark:focus:ring-zinc-800" %>
-            </li>
-            <li>
-              <%= nav_link_to "Pricing", (defined?(pricing_path) ? pricing_path : "#"), inactive_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal dark:text-zinc-100 dark:hover:text-primary-500 dark:focus:ring-zinc-800", active_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal text-primary-600 dark:text-primary-500 dark:focus:ring-zinc-800" %>
-            </li>
-            <li>
-              <%= nav_link_to "About", (defined?(about_path) ? about_path : "#"), inactive_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal dark:text-zinc-100 dark:hover:text-primary-500 dark:focus:ring-zinc-800", active_class: "lg:px-3 py-2 lg:inline-block block hover:bg-opacity-50 rounded hover:text-primary-600 focus:ring-4 focus:ring-zinc-50 font-normal text-primary-600 dark:text-primary-500 dark:focus:ring-zinc-800" %>
-            </li>
-          </ul>
-        </nav>
-
-        <nav>
-          <ul
-            class="flex lg:justify-start justify-between items-center space-x-3 lg:pt-0 pt-6 border-t lg:border-t-0 lg:mt-0 mt-6 text-zinc-700 dark:border-zinc-600/80">
-            <li class="lg:w-auto w-1/2">
-              <%= link_to "Sign in", new_user_session_path, class: "lg:px-3 lg:py-2 py-[8px] lg:inline-block block hover:bg-opacity-50 hover:text-primary-500 focus:ring-4 focus:ring-zinc-50 lg:w-auto w-full text-center lg:border-0 border lg:rounded-none rounded-full font-heading dark:text-zinc-100 dark:focus:ring-zinc-800" %>
-            </li>
-            <li class="lg:w-auto w-1/2">
-              <%= link_to "Get started", new_user_registration_path, class: "btn btn-primary lg:w-auto w-full flex justify-center" %>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <%= render "shared/nav" %>
 
     <div class="container mx-auto px-4 lg:py-24 py-14">
       <h1 class="md:text-5xl text-3xl tracking-tighter font-semibold font-heading text-zinc-900 dark:text-white text-center"> We leverage technology to protect <br class="lg:block hidden" />landlords and tenants</h1>
@@ -65,9 +14,13 @@
 
         <%= link_to "Learn more", "#", class: "btn btn-primary lg:w-auto w-full text-center" %>
 
-        <%= link_to "#", class: "btn btn-white flex items-center lg:w-auto w-full justify-center" do %>
-          <span>Sign Up Now</span>
-          <%= icon "user-plus", classes: "ml-2 stroke-current text-zinc-600 w-4 h-4 dark:text-zinc-300" %>
+        <% if user_signed_in? %>
+          <%= link_to "Dashboard", "#", class: "btn btn-white lg:w-auto w-full text-center" %>
+        <% else %>
+          <%= link_to "#", class: "btn btn-white flex items-center lg:w-auto w-full justify-center" do %>
+            <span>Sign Up Now</span>
+            <%= icon "user-plus", classes: "ml-2 stroke-current text-zinc-600 w-4 h-4 dark:text-zinc-300" %>
+          <% end %>
         <% end %>
       </div>
     </div>
