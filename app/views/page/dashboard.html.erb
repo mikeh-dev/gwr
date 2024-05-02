@@ -24,22 +24,22 @@
     <div class="grid md:grid-cols-4 grid-cols-2 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
       <%= link_to (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Inbox</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">39</p>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">4</p>
       <% end %>
 
       <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
-        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Sched. messages</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">46</p>
+        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Repair Cases</h3>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">3</p>
       <% end %>
 
       <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
-        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Arrivals</h3>
+        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Properties</h3>
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">2</p>
       <% end %>
 
       <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
-        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Departures</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">1</p>
+        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Agreement</h3>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">2</p>
       <% end %>
     </div>
   </div>
@@ -48,11 +48,9 @@
 <div class="container mx-auto px-4 pt-16">
   <div class="flex md:justify-between justify-center items-center flex-wrap">
     <div class="flex items-center space-x-3 flex-1 md:mb-0 mb-3">
-      <button type="button" class="btn btn-primary">Arrivals (2)</button>
-      <button type="button" class="btn btn-white">Departures (1)</button>
+      <button type="button" class="btn btn-primary">Properties (2)</button>
+      <button type="button" class="btn btn-white">Agreements (1)</button>
     </div>
-
-    <%= link_to "View all bookings", (defined?(admin_bookings_path) ? admin_bookings_path : "#"), class: "btn btn-link" %>
   </div>
 
   <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-8">

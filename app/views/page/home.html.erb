@@ -3,7 +3,6 @@
 
   <div class="bg-cover h-auto z-40 relative">
     <%= render "shared/nav" %>
-
     <div class="container mx-auto px-4 lg:py-24 py-14">
       <h1 class="md:text-5xl text-3xl tracking-tighter font-semibold font-heading text-zinc-900 dark:text-white text-center"> We leverage technology to protect <br class="lg:block hidden" />landlords and tenants</h1>
       <div class="prose prose-lg prose-zinc text-center mx-auto my-6 dark:prose-invert">
@@ -11,12 +10,11 @@
       </div>
 
       <div class="lg:flex justify-center items-center mt-6 lg:space-x-4 lg:space-y-0 space-y-4">
-
-        <%= link_to "Learn more", "#", class: "btn btn-primary lg:w-auto w-full text-center" %>
-
         <% if user_signed_in? %>
-          <%= link_to "Dashboard", "#", class: "btn btn-white lg:w-auto w-full text-center" %>
+          <%= link_to "Get Started", "#", class: "btn btn-primary lg:w-auto w-full text-center" %>
+          <%= link_to "Dashboard", admin_dashboard_path, class: "btn btn-white lg:w-auto w-full text-center" %>
         <% else %>
+          <%= link_to "Learn more", "#", class: "btn btn-primary lg:w-auto w-full text-center" %>
           <%= link_to "#", class: "btn btn-white flex items-center lg:w-auto w-full justify-center" do %>
             <span>Sign Up Now</span>
             <%= icon "user-plus", classes: "ml-2 stroke-current text-zinc-600 w-4 h-4 dark:text-zinc-300" %>
@@ -46,7 +44,7 @@
 
     <div class="container mx-auto px-4 lg:absolute top-0 right-0 lg:flex items-start lg:justify-end justify-start lg:space-x-24 lg:pt-16 lg:pr-16 lg:space-y-0 space-y-6">
       <div class="flex items-center space-x-4">
-        <%= image_tag "jackie-jones.png", alt: "Jackie Jones", class: "lg:w-24 w-16 h-16 lg:h-24 rounded-full" %>
+        <%= image_tag "jake-jones.png", alt: "Jaje Jones", class: "lg:w-24 w-16 h-16 lg:h-24 rounded-full" %>
         <div>
           <p class="text-zinc-800 dark:text-zinc-200 font-semibold">Jackie Jones</p>
           <p class="dark:text-zinc-400">Co-founder</p>
@@ -65,7 +63,7 @@
   </div>
 
   <div class="container mx-auto px-4 xl:-mt-20 mt-10 pb-16">
-    <h2 class="font-heading tracking-tight lg:text-5xl text-4xl mb-3 relative z-10 dark:text-white font-semibold">Born out of the travel industry</h2>
+    <h2 class="font-heading tracking-tight lg:text-5xl text-4xl mb-3 relative z-10 dark:text-white font-semibold">Born out of </h2>
     <p class="text-primary-500 text-lg">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-10 gap-6 lg:mt-10 mt-6">
