@@ -15,7 +15,7 @@
           <%= link_to "Dashboard", admin_dashboard_path, class: "btn btn-white lg:w-auto w-full text-center" %>
         <% else %>
           <%= link_to "Learn more", "#", class: "btn btn-primary lg:w-auto w-full text-center" %>
-          <%= link_to "#", class: "btn btn-white flex items-center lg:w-auto w-full justify-center" do %>
+          <%= link_to new_user_registration_path, class: "btn btn-white flex items-center lg:w-auto w-full justify-center" do %>
             <span>Sign Up Now</span>
             <%= icon "user-plus", classes: "ml-2 stroke-current text-zinc-600 w-4 h-4 dark:text-zinc-300" %>
           <% end %>
