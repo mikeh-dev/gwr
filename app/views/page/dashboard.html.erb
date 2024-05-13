@@ -10,7 +10,7 @@
                   "Good afternoon"
                 else
                   "Good evening"
-                end %>
+                end %> 
 
   <div class="relative z-20">
     <% if user_signed_in? %>
@@ -24,22 +24,22 @@
     <div class="grid md:grid-cols-4 grid-cols-2 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
       <%= link_to (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Inbox</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">4</p>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
       <% end %>
 
       <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Repair Cases</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">3</p>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
       <% end %>
 
       <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Properties</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">2</p>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @properties_count %></p>
       <% end %>
 
       <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
-        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Agreement</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">2</p>
+        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Agreements</h3>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
       <% end %>
     </div>
   </div>
@@ -48,54 +48,40 @@
 <div class="container mx-auto px-4 pt-16">
   <div class="flex md:justify-between justify-center items-center flex-wrap">
     <div class="flex items-center space-x-3 flex-1 md:mb-0 mb-3">
-      <button type="button" class="btn btn-primary">Properties (2)</button>
-      <button type="button" class="btn btn-white">Agreements (1)</button>
+      <%= link_to properties_path do %>
+        <button type="button" class="btn btn-primary">
+          Properties (<%= @properties_count %>)
+        </button>
+      <% end %>
     </div>
   </div>
 
   <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-8">
-
     <!-- Property user card 1 -->
+  <% @properties.each do |property| %>
     <div class="border border-zinc-300/90 shadow-sm shadow-zinc-300/20 rounded-lg p-3 dark:shadow-zinc-950/50 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600">
       <%= image_tag "property-1.jpg", alt: "Image of Alpine Retreat Haven", class: "rounded-lg h-[174px] w-full object-cover object-center shadow dark:shadow-none dark:border dark:border-zinc-600/80 border-transparent" %>
       <div class="flex items-center space-x-3 mt-4">
         <%= image_tag demo_avatar_url(variant: "men", id: "88"), class: "w-10 h-10 rounded-full object-cover", alt: "Noah Martinez" %>
         <div class="flex-1">
-          <p class="font-medium dark:text-white font-heading text-zinc-900">Noah Martinez</p>
-          <p class="font-light text-sm text-zinc-600 font-heading dark:text-zinc-400">Alpine Retreat Haven</p>
+          <p class="font-medium dark:text-white font-heading text-zinc-900"><%= property.title %></p>
+          <p class="font-light text-sm text-zinc-600 font-heading dark:text-zinc-400"><%= property.address %></p>
         </div>
       </div>
       <div class="flex justify-between items-end pt-3">
         <div class="flex items-center space-x-2">
-          <%= icon "clock", classes: "w-5 h-5 text-zinc-500 stroke-current dark:text-zinc-300" %>
-          <span class="text-zinc-600 dark:text-zinc-400 text-sm">Aug 24, 3pm</span>
+          <%= icon "map", classes: "w-5 h-5 text-zinc-500 stroke-current dark:text-zinc-300" %>
+          <span class="text-zinc-600 dark:text-zinc-400 text-sm"><%= property.city %></span>
         </div>
-        <%= link_to "View", (defined?(admin_booking_path) ? admin_booking_path : "#"), class: "btn btn-white" %>
-      </div>
-    </div>
-
-    <!-- Property user card 2 -->
-    <div class="border border-zinc-300/90 shadow-sm shadow-zinc-300/20 rounded-lg p-3 dark:shadow-zinc-950/50 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600">
-      <%= image_tag "property-3.jpg", alt: "Image of Mountain Vista Chalet", class: "rounded-lg h-[174px] w-full object-cover object-center shadow dark:shadow-none dark:border dark:border-zinc-600/80 border-transparent" %>
-      <div class="flex items-center space-x-3 mt-4">
-        <%= image_tag demo_avatar_url(variant: "women", id: "78"), class: "w-10 h-10 rounded-full object-cover", alt: "Dannie White" %>
-        <div class="flex-1">
-          <p class="font-medium dark:text-white font-heading text-zinc-900">Dannie White</p>
-          <p class="font-light text-sm text-zinc-600 font-heading dark:text-zinc-400">Mountain Vista Chalet</p>
-        </div>
-      </div>
-      <div class="flex justify-between items-end pt-3">
-        <div class="flex items-center space-x-2">
-          <%= icon "clock", classes: "w-5 h-5 text-zinc-500 stroke-current dark:text-zinc-300" %>
-          <span class="text-zinc-600 dark:text-zinc-400 text-sm">Aug 24, 3pm</span>
-        </div>
-        <%= link_to "View", (defined?(admin_booking_path) ? admin_booking_path : "#"), class: "btn btn-white" %>
+        <%= link_to "View", property_path(property), class: "btn btn-white" %>
       </div>
     </div>
   </div>
+  <% end %>
 </div>
-
-<div class="container mx-auto px-4 pt-16">
+  
+<!-- CURRENTLY HIDDEN -->
+<div class="container mx-auto px-4 pt-16 hidden">
   <div class="md:flex items-center justify-between">
     <div class="md:flex-1">
       <h3 class="text-3xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight mb-3">Recent stats</h3>
@@ -105,8 +91,6 @@
       <select name="recent_states_properties" class="form-select">
         <option value="">Select property</option>
         <option value="Alpine Retreat Haven">Alpine Retreat Haven</option>
-        <option value="Mount Vista Chalet">Mountain Vista Chalet</option>
-        <option value="Cozy Mountain A-Frame">Cozy Mountain A-Frame</option>
       </select>
     </form>
   </div>

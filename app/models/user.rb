@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   enum role: {tenant: 0, landlord: 1, admin: 2}
 
-  has_many :properties, foreign_key: 'owner_id', class_name: 'Property', dependent: :destroy
+  has_many :properties, foreign_key: 'owner_id', class_name: 'Property'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

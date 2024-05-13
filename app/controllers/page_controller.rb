@@ -1,4 +1,6 @@
 class PageController < ApplicationController
+	before_action :authenticate_user!
+
 
 	def home
 	end
@@ -76,7 +78,10 @@ class PageController < ApplicationController
 	end
 
 	def dashboard
+		@properties_count = current_user.properties.count
+		@properties = current_user.properties
 		render layout: 'admin'
+
 	end
 
 	def pricing
