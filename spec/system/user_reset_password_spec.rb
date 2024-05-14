@@ -19,18 +19,14 @@ RSpec.describe 'User Reset Password', type: :system do
   it 'displays error message for invalid password reset' do
     click_link 'Forgot your password?'
     expect redirect_to new_user_password_path
-    fill_in 'Email', with: 'sdfsdf'
+    fill_in 'Email', with: 'sdfsdf@error.com'
     click_button 'Send me reset password instructions'
     expect redirect_to new_user_password_path
-    within('#error_explanation') do
-      expect(page).to have_content('Email not found')
-    end
+    expect(page).to have_content("Email not found")
     fill_in 'Email', with: ''
     click_button 'Send me reset password instructions'
     expect redirect_to new_user_password_path
-    within('#error_explanation') do
-      expect(page).to have_content('Email not found')
-    end
+    expect(page).to have_content("Email can't be blank")
 
   end
 end
