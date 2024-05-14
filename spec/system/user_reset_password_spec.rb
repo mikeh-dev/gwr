@@ -27,6 +27,5 @@ RSpec.describe 'User Reset Password', type: :system do
     click_button 'Send me reset password instructions'
     expect redirect_to new_user_password_path
     expect(page).to have_content("Email can't be blank")
-
   end
 end
