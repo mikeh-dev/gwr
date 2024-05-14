@@ -6,6 +6,8 @@ RSpec.feature "User Signup", type: :feature do
     visit new_user_registration_path
     
     fill_in "Email", with: "test@example.com"
+    expect(page).to have_select('user_role', with_options: ['Choose an account type'] + User.roles.except("admin").keys.map(&:titleize))
+    select 'Landlord', from: 'user_role'
     fill_in "Password", with: "password123"
     fill_in "Password confirmation", with: "password123"
     click_button "Sign up"
