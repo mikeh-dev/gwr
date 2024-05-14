@@ -21,7 +21,7 @@ RSpec.describe "Landlord Property CRUD", type: :system do
     fill_in 'Address', with: '123 Main St'
     fill_in 'Postcode', with: '12345'
     fill_in 'City', with: 'Anytown'
-    fill_in 'Property type', with: 'House'
+    select 'House', from: 'Property type'
     click_button 'Save Property'
     expect(page).to have_content('Property was successfully created.')
   end
