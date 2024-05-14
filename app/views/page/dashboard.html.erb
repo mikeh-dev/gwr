@@ -1,5 +1,5 @@
 <div class="relative min-h-[320px] md:py-16 py-14 border-b border-zinc-200 dark:border-zinc-700/80">
-  <div class="opacity-5 blur-4xl absolute inset-0 w-full h-full
+  <div id="greeting" class="opacity-5 blur-4xl absolute inset-0 w-full h-full
     bg-gradient-to-r from-white via-primary-500/40 via-[24.79%] to-[#177BB5] z-0"></div>
 
     <% current_hour = Time.now.hour %>
@@ -12,7 +12,7 @@
                   "Good evening"
                 end %> 
 
-  <div class="relative z-20">
+  <div  class="relative z-20">
     <% if user_signed_in? %>
       <h2 class="text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight text-center"><%= "#{greeting}, #{current_user.first_name}" %></h2>
     <% else %>
@@ -21,7 +21,7 @@
     <p class="font-light font-heading text-center py-4 text-zinc-700 dark:text-zinc-300">Here is what's happening today
     </p>
 
-    <div class="grid md:grid-cols-4 grid-cols-2 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
+    <div id="dashboard-boxed-links" class="grid md:grid-cols-4 grid-cols-2 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
       <%= link_to (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Inbox</h3>
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
@@ -32,7 +32,7 @@
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
       <% end %>
 
-      <%= link_to "#", class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
+      <%= link_to properties_path, class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Properties</h3>
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @properties_count %></p>
       <% end %>
@@ -47,7 +47,7 @@
 
 <div class="container mx-auto px-4 pt-16">
   <div class="flex md:justify-between justify-center items-center flex-wrap">
-    <div class="flex items-center space-x-3 flex-1 md:mb-0 mb-3">
+    <div id="properties-pill" class="flex items-center space-x-3 flex-1 md:mb-0 mb-3">
       <%= link_to properties_path do %>
         <button type="button" class="btn btn-primary">
           Properties (<%= @properties_count %>)

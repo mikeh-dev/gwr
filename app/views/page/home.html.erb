@@ -9,7 +9,7 @@
         <p>With Renting sometimes things can go wrong.<br class="lg:block hidden" /> Our solutions give everyone peace of mind.</p>
       </div>
 
-      <div class="lg:flex justify-center items-center mt-6 lg:space-x-4 lg:space-y-0 space-y-4">
+      <div id="hero" class="lg:flex justify-center items-center mt-6 lg:space-x-4 lg:space-y-0 space-y-4">
         <% if user_signed_in? %>
           <%= link_to "Get Started", "#", class: "btn btn-primary lg:w-auto w-full text-center" %>
           <%= link_to "Dashboard", admin_dashboard_path, class: "btn btn-white lg:w-auto w-full text-center" %>
