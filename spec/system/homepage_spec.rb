@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Homepage", type: :system do
+
   context "when user is logged out" do
     it "displays the correct homepage content" do
       visit root_path
@@ -11,5 +12,17 @@ RSpec.describe "Homepage", type: :system do
   end
 
   context "when user is logged in" do
+    let(:user) { create(:user) }
+
+    before do
+      login_as user
+    end
+
+    it "displays the correct homepage content" do
+      visit root_path
+      expect(page).to have_content("With Renting sometimes things can go wrong")
+      expect(page).to have_link("Dashboard")
+    end
+
   end
 end
