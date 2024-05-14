@@ -63,7 +63,7 @@
       </div>
       <div>
         <%= form.label :property_type, class: "form-label form-label-required" %>
-        <%= form.select :property_type, options_for_select([['Choose a Property type', '']] + Property.property_types.keys.map { |type| [type.titleize, type] }), {}, { class: "form-select w-full" } %> 
+        <%= form.select :property_type, options_for_select([['Choose a Property type', '']] + Property.property_types.keys.map { |type| [type.titleize, type] }, selected: form.object.property_type), {}, { class: "form-select w-full" } %> 
       </div>
     </div>
 
