@@ -6,6 +6,14 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     admin { false }
-    role { }
+    
+    factory :landlord do
+      role { :landlord }
+    end
+
+    factory :tenant do
+      role { :tenant }
+    end
+    
   end
 end

@@ -4,7 +4,6 @@ FactoryBot.define do
     address { Faker::Address.street_address }
     postcode { Faker::Address.postcode }
     city { Faker::Address.city }
-    property_type { ["House", "Apartment", "Condo"].sample }
-    association :owner, factory: :user
+    property_type { ["house", "apartment", "commercial", "land"].sample }
   end
 end
