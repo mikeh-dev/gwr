@@ -84,11 +84,11 @@
               <div class="flex-1 flex items-center space-x-4">
                 <div class="flex items-center space-x-2">
                   <%= icon "home-modern", classes: "w-5 h-5 text-zinc-600 stroke-current dark:text-zinc-400" %>
-                  <span class="text-sm text-zinc-600 dark:text-zinc-400"><%= property[:listings] %> Listings</span>
+                  <span class="text-sm text-zinc-600 dark:text-zinc-400"><%= property.property_type.capitalize %></span>
                 </div>
                 <div class="flex items-center space-x-2">
                   <%= icon "arrow-path", classes: "w-4 h-4 text-zinc-600 stroke-current dark:text-zinc-400" %>
-                  <span class="text-sm text-zinc-600 dark:text-zinc-400">Syncing</span>
+                  <span class="text-sm text-zinc-600 dark:text-zinc-400">Renewal Due - 1/2/24</span>
                 </div>
               </div>
               <div data-controller="dropdown" class="relative">
@@ -105,14 +105,14 @@
                   data-transition-leave-from="transform opacity-100 scale-100"
                   data-transition-leave-to="transform opacity-0 scale-95" data-dropdown-target="menu">
                   <li>
-                    <%= link_to "#", class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
+                    <%= link_to edit_property_path(property), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
                       <span>Edit property</span>
                       <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 stroke-current text-zinc-500/60 dark:text-zinc-400" %>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to "#", class: "px-4 md:py-2 py-3 flex hover:text-zinc-900 text-zinc-700 items-center justify-between dark:text-zinc-200 dark:hover:text-white" do %>
-                      <span>Re-sync</span>
+                      <span>Message Tenant</span>
                       <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 stroke-current text-zinc-500/60 dark:text-zinc-400" %>
                     <% end %>
                   </li>
@@ -130,21 +130,17 @@
       <div class="flex items-center justify-start">
         <div class="md:w-12 mb-3 md:mb-0">
           <div class="flex items-center space-x-3">
-            <input type="checkbox" class="form-input-checkbox" name="all_properties" id="all_properties"
-              data-select-all-target="selectAll" />
-            <label for="all_properties" class="form-label mb-0 md:hidden block text-zinc-700 dark:text-zinc-200">All
-              properties</label>
+            
           </div>
         </div>
         <div class="font-medium md:w-auto md:block hidden flex-1">Property</div>
-        <div class="font-medium md:w-2/12 md:block hidden">Listings</div>
-        <div class="font-medium md:w-2/12 md:block hidden">Sync</div>
-        <div class="font-medium md:w-2/12 md:block hidden">Hosts</div>
+        <div class="font-medium md:w-2/12 md:block hidden">Type</div>
+        <div class="font-medium md:w-2/12 md:block hidden">Renewal Due</div>
+        <div class="font-medium md:w-2/12 md:block hidden">Tenant</div>
         <div class="md:w-1/12 md:block hidden"></div>
       </div>
       <ul class="divide-y divide-zinc-200/80 dark:divide-zinc-700">
         <% @properties.each do |property| %>
-
           <li class="flex flex-wrap items-center justify-start space-y-3 md:space-y-0 py-6 md:py-4">
             <div class="md:w-12 w-10">
               <input type="checkbox" class="form-input-checkbox" data-select-all-target="checkbox" />
@@ -159,15 +155,15 @@
               <% end %>
             </div>
             <div class="md:w-2/12 w-1/3">
-              <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Listings</span>
-              <span class="block"><%= property[:listings] %></span>
+              <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Type</span>
+              <span class="block"><%= property.property_type.capitalize %></span>
             </div>
             <div class="md:w-2/12 w-1/3">
-              <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Sync</span>
-              <%= icon "arrow-path", classes: "stroke-current w-5 h-5 text-zinc-600 dark:text-zinc-300/90" %>
+              <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Renewal Due</span>
+              <span class="block">1/2/24</span>
             </div>
             <div class="md:w-2/12 w-1/3">
-              <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Hosts</span>
+              <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Tenant</span>
               <%= image_tag "ross.jpg", class: "md:w-9 w-5 md:h-9 h-5 rounded-full flex-shrink-0", alt: "Avatar" %>
             </div>
             <div class="md:w-1/12 w-full md:pt-0 pt-4">
@@ -198,7 +194,7 @@
                   </li>
                   <li>
                     <%= link_to "#", class: "px-4 md:py-2 py-3 flex hover:text-zinc-900 text-zinc-700 items-center justify-between dark:text-zinc-200 dark:hover:text-white" do %>
-                      <span>Re-sync</span>
+                      <span>Message Tenant</span>
                       <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 stroke-current text-zinc-500/60 dark:text-zinc-400" %>
                     <% end %>
                   </li>
