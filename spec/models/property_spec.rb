@@ -1,5 +1,3 @@
-# FILEPATH: /Users/michaelhoward/Portfolio/gwr/spec/models/property_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe Property, type: :model do
@@ -15,5 +13,10 @@ RSpec.describe Property, type: :model do
     it { should validate_presence_of(:property_type) }
   end
 
-  
+  describe 'enums' do
+    it 'should define enum for property_type' do
+      should define_enum_for(:property_type).
+        with_values({ house: 0, apartment: 1, commercial: 2, land: 3 })
+    end
+  end
 end
