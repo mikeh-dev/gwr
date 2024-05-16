@@ -8,7 +8,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'rspec/rails'
 require 'capybara/rails'
-require "selenium/webdriver"
+require 'selenium/webdriver'
 require 'shoulda/matchers'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -35,24 +35,22 @@ RSpec.configure do |config|
     Warden.test_reset!
   end
 
+  # Use RackTest driver by default for system tests
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  # Use Selenium Chrome Headless for system tests requiring JavaScript
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
+  end
+
   Shoulda::Matchers.configure do |shoulda_config|
     shoulda_config.integrate do |with|
       with.test_framework :rspec
       with.library :rails
     end
   end
-
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
-
-  config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
-  end
-end
-
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
 Capybara.register_driver :selenium_chrome_headless do |app|
@@ -64,17 +62,6 @@ Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
-Capybara.register_server :quiet_puma do |app, port, host|
-  require 'puma'
-  log_file = File.open(File::NULL, 'w')
-  log_writer = Puma::LogWriter.new(log_file, log_file)
-  events = Puma::Events.new(log_writer, log_writer)
-
-  Puma::Server.new(app, events).tap do |s|
-    s.add_tcp_listener host, port
-  end.run
-end
-
-Capybara.server = :quiet_puma
+Capybara.server = :puma, { Silent: true }
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_chrome_headless

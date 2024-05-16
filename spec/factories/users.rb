@@ -3,17 +3,16 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     password { 'password' }
     password_confirmation { 'password' }
-    role { :tenant }
 
-    trait :tenant do
+    factory :tenant do
       role { :tenant }
     end
 
-    trait :landlord do
+    factory :landlord do
       role { :landlord }
     end
 
-    trait :admin do
+    factory :admin do
       role { :admin }
     end
   end

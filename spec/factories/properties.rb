@@ -5,6 +5,7 @@ FactoryBot.define do
     postcode { '12345' }
     city { 'Sample City' }
     property_type { :house }
+    notes { 'Sample notes' }
     association :landlord, factory: [:user, :landlord]
   end
 end
