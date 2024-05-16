@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Landlord Property CRUD", type: :system do
+RSpec.describe "Property CRUD", type: :system do
   let(:landlord) { create(:user, role: :landlord) }
   let(:tenant) { create(:user, role: :tenant) }
   let!(:property) { create(:property, owner_id: landlord.id) }
@@ -93,10 +93,16 @@ RSpec.describe "Landlord Property CRUD", type: :system do
     end
 
     it 'does not allow tenant user to delete a property' do
-      visit admin_dashboard_path
+      visit edit_property_path(property)
       expect(page).to have_content('You are not authorised to access this page.')
       visit property_path(property)
-      expect(page).not have_content('Delete Property')
+      expect(page).not_to have_content('Delete Property')
+    end
+
+    it 'allows tenant user to view a property' do
+      visit properties_path
+      click_link property.title
+      expect(page).to have_content(property.title)
     end
   end
 end
