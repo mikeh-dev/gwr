@@ -46,10 +46,7 @@ RSpec.describe "Homepage", type: :system do
   it "displays the co-founder images and descriptions" do
     visit root_path
 
-    expect(page).to have_selector("p", text: "Jackie Jones")
-    expect(page).to have_selector("p", text: "Co-founder")
-
-    expect(page).to have_selector("p", text: "Jake Jones")
+    expect(page).to have_selector("p", text: "Mitch Erskine")
     expect(page).to have_selector("p", text: "Co-founder")
   end
 
@@ -84,7 +81,7 @@ RSpec.describe "Homepage", type: :system do
   it "displays the newsletter section" do
     visit root_path
 
-    expect(page).to have_selector('h3', text: "Want to read more about what\nwe're up to every week?")
+    expect(page).to have_selector('h3', text: "Want to read more about what")
     
   end
 

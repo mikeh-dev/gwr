@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/getrailsui/railsui.git
-  revision: 8d92f24c2559f0022e85551df9851a5d7ba3d964
+  revision: dceb1add536e59802c137fa3f55263b5bb5c03f3
   branch: main
   specs:
     railsui (2.0.0)
@@ -123,7 +123,7 @@ GEM
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    i18n (1.14.4)
+    i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
@@ -132,8 +132,8 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     io-console (0.7.2)
-    irb (1.12.0)
-      rdoc
+    irb (1.13.1)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jbuilder (2.12.0)
       actionview (>= 5.0.0)
@@ -155,11 +155,11 @@ GEM
     method_source (1.1.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    minitest (5.22.3)
+    minitest (5.23.0)
     msgpack (1.7.2)
     name_of_person (1.1.3)
       activesupport (>= 5.2.0)
-    net-imap (0.4.10)
+    net-imap (0.4.11)
       date
       net-protocol
     net-pop (0.1.2)
@@ -168,8 +168,8 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    nio4r (2.7.1)
-    nokogiri (1.16.4-x86_64-darwin)
+    nio4r (2.7.3)
+    nokogiri (1.16.5-x86_64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.5.6)
@@ -178,6 +178,8 @@ GEM
     public_suffix (5.0.5)
     puma (5.6.8)
       nio4r (~> 2.0)
+    pundit (2.3.2)
+      activesupport (>= 3.0.0)
     racc (1.7.3)
     rack (2.2.9)
     rack-test (2.1.0)
@@ -214,19 +216,20 @@ GEM
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     redis (4.8.1)
-    regexp_parser (2.9.0)
-    reline (0.5.4)
+    regexp_parser (2.9.2)
+    reline (0.5.7)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-mocks (3.13.0)
+    rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-rails (6.1.2)
@@ -257,6 +260,7 @@ GEM
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.0)
+    strscan (3.1.0)
     thor (1.3.1)
     timeout (0.4.1)
     turbo-rails (2.0.5)
@@ -282,7 +286,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.13)
+    zeitwerk (2.6.14)
 
 PLATFORMS
   x86_64-darwin-21
@@ -298,6 +302,7 @@ DEPENDENCIES
   jbuilder
   pg
   puma (~> 5.0)
+  pundit
   rails (~> 7.0.8, >= 7.0.8.1)
   railsui!
   redis (~> 4.0)

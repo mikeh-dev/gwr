@@ -30,7 +30,7 @@ RSpec.feature "Navigation", type: :feature do
       expect(page).to have_button("dropdown-menu", exact: true)
     
       expect(page).to have_link("Inbox", href: admin_inbox_path)
-      expect(page).to have_link("Manage properties", href: admin_properties_path)
+      expect(page).to have_link("Manage properties", href: properties_path)
       expect(page).to have_link("Add booking", href: admin_new_booking_path)
       expect(page).to have_link("Account", href: edit_user_registration_path)
       expect(page).to have_button("Sign out", exact: true)

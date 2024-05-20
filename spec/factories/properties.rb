@@ -1,9 +1,11 @@
 FactoryBot.define do
   factory :property do
-    title { "Charming Cottage" }
-    address { Faker::Address.street_address }
-    postcode { Faker::Address.postcode }
-    city { Faker::Address.city }
-    property_type { ["house", "apartment", "commercial", "land"].sample }
+    title { 'Sample Property' }
+    address { '123 Main Street' }
+    postcode { '12345' }
+    city { 'Sample City' }
+    property_type { :house }
+    notes { 'Sample notes' }
+    association :landlord, factory: [:user, :landlord]
   end
 end
