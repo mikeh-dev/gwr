@@ -27,8 +27,9 @@ Rails.application.routes.draw do
 
 	root to: 'page#home'
 
-  devise_for :users
+  	devise_for :users
 
 	resources :properties
+	resources :agreements
 
 end
