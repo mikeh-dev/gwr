@@ -1,10 +1,13 @@
 require 'rails_helper'
 
     RSpec.describe "Basic Agreement", type: :system do
-        let(:user) { create(:user, role: :landlord) }
+        let(:landlord) { create(:user, role: :landlord) }
+        let(:agreement) { create(:agreement) }
+        let(:property) { create(:property) }
+        let(:tenant) { create(:user, role: :tenant) }
 
         before do
-            login_as user
+            login_as landlord
         end
     
         context "when user is signed in as landlord" do
@@ -32,6 +35,47 @@ require 'rails_helper'
                 fill_in 'Monthly rent amount', with: 1000
                 click_button 'Create Agreement'
                 expect(page).to have_content('Agreement was successfully created.')
+            end
+
+            it "allows them to view an agreement" do
+                agreement = create(:agreement)
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                click_link 'Show'
+                expect(page).to have_content('Agreement')
+                expect(page).to have_content(agreement.length)
+                expect(page).to have_content(agreement.start_date)
+                expect(page).to have_content(agreement.end_date)
+                expect(page).to have_content(agreement.notice_period)
+                expect(page).to have_content(agreement.monthly_rent_amount)
+            end
+
+            it "allows them to edit an agreement" do
+                agreement = create(:agreement)
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                click_link 'Edit'
+                expect(page).to have_content('Edit Agreement')
+                fill_in 'Length', with: 12
+                fill_in 'Start date', with: Date.today
+                fill_in 'End date', with: Date.today + 1.year
+                fill_in 'Notice period', with: 3
+                fill_in 'Monthly rent amount', with: 1000
+                click_button 'Update Agreement'
+                expect(page).to have_content('Agreement was successfully updated.')
+            end
+
+            it "does not allow them to delete an agreement" do
+                agreement = create(:agreement)
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                expect(page).to have_no_link('Delete')
             end
         end
     end
