@@ -2,7 +2,7 @@
   <div class="md:flex items-center justify-between">
     <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreements</h1>
     <div class="md:flex items-center md:space-x-6">
-      <%= link_to "Create Agreement", (defined?(admin_new_booking_path) ? admin_new_booking_path : new_agreement_path), class: "btn btn-primary md:mt-0 mt-6" %>
+      <%= link_to "Create Agreement", new_agreement_path, class: "btn btn-primary md:mt-0 mt-6" %>
     </div>
   </div>
 
@@ -47,14 +47,123 @@
 
           <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
 
-           <% @agreements.each do |agreement| %>
+           <% [{
+              status: "Upcoming",
+              guest: "Dannie White",
+              guest_count: "3 adults, 1 child",
+              arrival: "Aug 24, 2024",
+              departure: "Aug 28, 2024",
+              date: "Jun 15, 2024",
+              time: "7:38 PM CST",
+              property: "Mountain Vista Chalet",
+              price: "$1,165.45"
+            },
+            {
+              status: "Upcoming",
+              guest: "John Smith",
+              guest_count: "2 adults, 2 children",
+              arrival: "Sep 12, 2024",
+              departure: "Sep 17, 2024",
+              date: "Jul 5, 2024",
+              time: "4:15 PM CST",
+              property: "Mountain Vista Chalet",
+              price: "$1,320.75"
+            },
+            {
+              status: "Upcoming",
+              guest: "Sarah Johnson",
+              guest_count: "4 adults",
+              arrival: "Oct 5, 2024",
+              departure: "Oct 10, 2024",
+              date: "Aug 20, 2024",
+              time: "2:45 PM CST",
+              property: "Cozy Mountain A-Frame",
+              price: "$980.00"
+            },
+            {
+              status: "Upcoming",
+              guest: "Michael Brown",
+              guest_count: "2 adults, 1 child",
+              arrival: "Nov 8, 2024",
+              departure: "Nov 12, 2024",
+              date: "Sep 30, 2024",
+              time: "9:22 AM CST",
+              property: "Mountain Vista Chalet",
+              price: "$1,045.90"
+            },
+            {
+              status: "Upcoming",
+              guest: "Linda Davis",
+              guest_count: "5 adults",
+              arrival: "Dec 15, 2024",
+              departure: "Dec 20, 2024",
+              date: "Oct 25, 2024",
+              time: "5:10 PM CST",
+              property: "Alpine Retreat Haven",
+              price: "$1,520.30"
+            },
+            {
+              status: "Upcoming",
+              guest: "Robert Taylor",
+              guest_count: "3 adults, 2 children",
+              arrival: "Jan 20, 2025",
+              departure: "Jan 25, 2025",
+              date: "Nov 10, 2024",
+              time: "3:55 PM CST",
+              property: "Cozy Mountain A-Frame",
+              price: "$1,100.25"
+            },
+            {
+              status: "Upcoming",
+              guest: "Emily Wilson",
+              guest_count: "4 adults, 1 child",
+              arrival: "Feb 18, 2025",
+              departure: "Feb 23, 2025",
+              date: "Dec 5, 2024",
+              time: "8:50 AM CST",
+              property: "Mountain Vista Chalet",
+              price: "$1,275.80"
+            },
+            {
+              status: "Upcoming",
+              guest: "Daniel Lee",
+              guest_count: "2 adults",
+              arrival: "Mar 22, 2025",
+              departure: "Mar 27, 2025",
+              date: "Jan 15, 2025",
+              time: "6:30 PM CST",
+              property: "Alpine Retreat Haven",
+              price: "$1,000.00"
+            },
+            {
+              status: "Upcoming",
+              guest: "Susan Martin",
+              guest_count: "3 adults, 1 child",
+              arrival: "Apr 25, 2025",
+              departure: "Apr 30, 2025",
+              date: "Feb 10, 2025",
+              time: "10:15 AM CST",
+              property: "Cozy Mountain A-Frame",
+              price: "$1,150.75"
+            },
+            {
+              status: "Upcoming",
+              guest: "David Anderson",
+              guest_count: "4 adults",
+              arrival: "May 20, 2025",
+              departure: "May 25, 2025",
+              date: "Mar 5, 2025",
+              time: "4:55 PM CST",
+              property: "Mountain Vista Chalet",
+              price: "$1,320.00"
+            }].each do |agreement| %>
               <tr class="md:whitespace-normal whitespace-nowrap">
                 <td class="align-top md:px-0 p-4 md:whitespace-normal whitespace-nowrap">
                   <span
-                    class="text-xs font-medium rounded-full font-sans bg-blue-50 text-blue-600 px-2 py-1 tracking-tight dark:bg-blue-500/20 dark:text-blue-200"><%= booking[:status] %></span>
+                    class="text-xs font-medium rounded-full font-sans bg-blue-50 text-blue-600 px-2 py-1 tracking-tight dark:bg-blue-500/20 dark:text-blue-200"><%= agreement[:status] %></span>
                 </td>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100">
-                  <p><%= link_to @agreements[agreement], "#" %></p>
+                  <p><%= link_to agreement[agreement], "#" %></p>
                   <p><small class="text-zinc-500 dark:text-zinc-400 font-sans"><%= agreement[:guest_count] %></small></p>
                 </td>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans">
@@ -95,7 +204,7 @@
                       data-transition-leave-to="transform opacity-0 scale-95" data-dropdown-target="menu">
                       <li>
                         <%= link_to (defined?(admin_booking_path) ? admin_booking_path : "#"), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
-                          <span>Go to Booking</span>
+                          <span>View Agreement</span>
                           <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
                         <% end %>
                       </li>

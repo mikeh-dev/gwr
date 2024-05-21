@@ -12,7 +12,7 @@
                   "Good evening"
                 end %> 
 
-  <div  class="relative z-20">
+  <div id="main-summary"  class="relative z-20">
     <% if user_signed_in? %>
       <h2 class="text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight text-center"><%= "#{greeting}, #{current_user.first_name}" %></h2>
     <% else %>
