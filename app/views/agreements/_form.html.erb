@@ -12,126 +12,69 @@
 
   <h1 class="mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">New Agreement</h1>
 
-  <form action="#">
+  <%= form_with(model: @agreement, local: true) do |form| %>
+     <% if @agreement.errors.any? %>
+      <div class="bg-red-100 border border-red-200 text-red-900 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-semibold">There were some errors with your submission</strong>
+        <ul class="mt-3 list-disc list-inside text-sm">
+          <% @agreement.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <!-- Property -->
     <div class="form-group">
-      <label for="agreement[property]" class="form-label form-label-required">Property</label>
-      <select name="agreement[property]" id="agreement[property]" class="form-select">
-        <option value="">Select a property</option>
-        <option value="1">Nature's Nook</option>
-        <option value="2">The Haven</option>
-        <option value="3">The Mountain Majesty</option>
-      </select>
+      <%= form.label :property_id, "Property", class: "form-label form-label-required" %>
+      <%= form.collection_select :property_id, current_user.properties, :id, :display_name, { prompt: "Choose a property" }, class: "form-select w-full" %>
     </div>
 
-    <h3 class="mb-6 pt-10 text-2xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Contact Information</h3>
-
-    <div class="prose prose-zinc mb-6 dark:prose-invert">
-      <p>Enter the contact information for the primary tenant reserving the property. We recommend collecting both and email and phone number if possible.</p>
-    </div>
+    <h3 class="mb-6 pt-10 text-2xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreement Details</h3>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 form-group">
-      <!-- Guest name -->
+      <!-- Length -->
       <div>
-        <label for="booking[name]" class="form-label form-label-required">Guest name</label>
-        <input type="text" id="booking[name]" class="form-input w-full" placeholder="Andy Leverenz" />
+        <%= form.label :length, "Length (in months)", class: "form-label form-label-required" %>
+        <%= form.number_field :length, class: "form-input w-full" %>
       </div>
-      <!-- Guest email -->
+      <!-- Monthly Rent Amount -->
       <div>
-        <label for="booking[email]" class="form-label form-label-required">Guest email</label>
-        <input type="email" id="booking[email]" class="form-input w-full" placeholder="andy@railsui.com" />
+        <%= form.label :monthly_rent_amount, "Monthly Rent Amount", class: "form-label form-label-required" %>
+        <%= form.number_field :monthly_rent_amount, step: 0.01, class: "form-input w-full" %>
       </div>
     </div>
 
-    <!-- Check-in/Checkout -->
+    <!-- Start Date / End Date -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 form-group">
+      <div>
+        <%= form.label :start_date, "Start Date", class: "form-label form-label-required" %>
+        <%= form.date_field :start_date, class: "form-input w-full" %>
+      </div>
+      <div>
+        <%= form.label :end_date, "End Date", class: "form-label form-label-required" %>
+        <%= form.date_field :end_date, class: "form-input w-full" %>
+      </div>
+    </div>
+
+    <!-- Notice Period -->
     <div class="form-group">
-      <label for="booking[checkin_checkout]" class="form-label form-label-required">Check-in/Check-out</label>
-      <a role="button" data-controller="date-range-picker" class="btn btn-white space-x-3 inline-flex items-center">
-        <%= icon "calendar-days", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300 flex-shrink-0" %>
-        <span data-date-range-picker-target="label">Select a date range</span>
-        <input type="hidden" data-date-range-picker-target="input">
-      </a>
+      <%= form.label :notice_period, "Notice Period (in days)", class: "form-label form-label-required" %>
+      <%= form.number_field :notice_period, class: "form-input w-full" %>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-      <div>
-        <!-- Mobile number -->
-        <label for="booking[mobile_phone]" class="form-label">Mobile number</label>
-        <div class="relative">
-          <input id="booking[mobile_phone]" type="tel" class="form-input w-full peer pl-14">
-          <span
-            class="w-12 h-[40px] bg-white rounded-l-full border-zinc-300/800 flex items-center justify-center absolute left-px top-px border-r peer-focus:border-zinc-500 text-zinc-500 peer-focus:text-primary-600 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-500/80">
-            <%= icon "device-phone-mobile", classes: "w-5 h-5" %>
-          </span>
-        </div>
-        <p class="text-xs text-zinc-500 mt-2 dark:text-zinc-400">Eg. +12015502123</p>
-      </div>
-      <div>
-        <!-- Language -->
-        <label for="booking[language]" class="form-label form-label-required">Language</label>
-        <select name="booking[language]" id="booking[language]" class="form-select">
-          <option value="english" selected>English</option>
-          <option value="spanish">Spanish</option>
-          <option value="french">French</option>
-          <option value="german">German</option>
-          <option value="italian">Italian</option>
-          <option value="chinese">Chinese</option>
-          <option value="japanese">Japanese</option>
-          <option value="korean">Korean</option>
-          <option value="arabic">Arabic</option>
-          <option value="russian">Russian</option>
-        </select>
-      </div>
-    </div>
-
+    <!-- Agreement Number -->
     <div class="form-group">
-      <label for="booking[notes]" class="form-label">Note</label>
-      <textarea name="booking[notes]" id="booking[notes]" resize class="form-textarea w-full" placeholder="Add a note"></textarea>
+      <%= form.label :agreement_number, "Agreement Number", class: "form-label form-label-required" %>
+      <%= form.text_field :agreement_number, class: "form-input w-full" %>
     </div>
 
-    <h3 class="mb-6 pt-10 text-2xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Guests</h3>
-
-    <div class="prose prose-zinc mb-6 dark:prose-invert">
-      <p>At least one guest is required to create a new booking. Add additional guests based on the selected property's criteria.</p>
-    </div>
-
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 form-group">
-      <div>
-        <label for="booking[adults]" class="form-label">Adults</label>
-        <input type="number" class="form-input w-full" id="booking[adults]" value="2" min="0" max="25" placeholder="2">
-      </div>
-      <div>
-        <label for="booking[children]" class="form-label">Children</label>
-        <input type="number" class="form-input w-full" id="booking[children]" min="0" max="25" placeholder="0">
-      </div>
-      <div>
-        <label for="booking[infants]" class="form-label">Infants</label>
-        <input type="number" class="form-input w-full" id="booking[infants]" min="0" max="25" placeholder="0">
-      </div>
-      <div>
-        <label for="booking[pets]" class="form-label">Pets</label>
-        <input type="number" class="form-input w-full" id="booking[pets]" min="0" max="5" placeholder="0">
-      </div>
-    </div>
-
-    <h3 class="mb-6 pt-10 text-2xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Pricing</h3>
-
-    <div class="prose prose-zinc mb-6 dark:prose-invert">
-      <p>The pricing entered below should include all fees, taxes, and services rendered. It's up to you to communicate the breakdown of such fees to your guest.</p>
-    </div>
-
-    <div class="form-group">
-      <label for="booking[total]" class="form-label">Total</label>
-      <div class="relative">
-        <span
-          class="w-12 h-[40px] bg-white rounded-l-full border-zinc-300/800 flex items-center justify-center absolute left-px top-px border-r peer-focus:border-zinc-500 text-zinc-500 peer-focus:text-primary-600 font-medium dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-500/80">$</span>
-        <input type="number" class="form-input w-full pl-16" placeholder="0.00" min="0" step=".01">
-      </div>
-    </div>
+    <!-- Hidden Fields for IDs -->
+    <%= form.hidden_field :landlord_id, value: current_user.id %>
+    <%= form.hidden_field :tenant_id %>
 
     <div class="grid grid-cols-2 gap-6 pt-10">
-      <%= link_to "Go Back", (defined?(admin_bookings_path) ? admin_bookings_path : "#"), class: "btn btn-white text-center" %>
-      <input type="submit" value="Create booking" class="btn btn-primary w-full">
+      <%= link_to "Go Back", agreements_path, class: "btn btn-white text-center" %>
+      <%= form.submit "Create Agreement", class: "btn btn-primary w-full" %>
     </div>
-  </form>
+  <% end %>
 </div>

@@ -29,8 +29,8 @@ require 'rails_helper'
                 within('#main-summary') do
                     click_link 'Agreements'
                 end
-                expect(page).to have_content(agreement1.length)
-                expect(page).to have_no_content(agreement2.length)
+                expect(page).to have_content(agreement1.agreement_number)
+                expect(page).to have_no_content(agreement2.agreement_number)
             end
 
             it "allows them to create a new agreement" do

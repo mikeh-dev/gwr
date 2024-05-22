@@ -23,7 +23,7 @@ class AgreementsController < ApplicationController
     if @agreement.save
       redirect_to @agreement, notice: 'Agreement was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -5,4 +5,8 @@ class Property < ApplicationRecord
   validates :title, :address, :postcode, :city, :property_type, presence: true
 
   enum property_type: { house: 0, apartment: 1, commercial: 2, land: 3}
+
+  def display_name
+    "#{title} - #{address}"
+  end
 end
