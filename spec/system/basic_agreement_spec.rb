@@ -2,15 +2,18 @@ require 'rails_helper'
 
     RSpec.describe "Basic Agreement", type: :system do
         let(:landlord) { create(:user, role: :landlord) }
-        let(:agreement) { create(:agreement) }
+        let(:agreement1) { create(:agreement, landlord: landlord) }
+        let(:agreement2) { create(:agreement, landlord: another_landlord) }
         let(:property) { create(:property) }
         let(:tenant) { create(:user, role: :tenant) }
-
-        before do
-            login_as landlord
-        end
+        let(:another_landlord) { create(:user, role: :landlord) }
     
         context "when user is signed in as landlord" do
+
+            before do
+                login_as landlord
+            end
+
             it "allows them to access agreements index" do
                 visit admin_dashboard_path
                 expect(page).to have_content('Agreements', count: 2)
@@ -19,6 +22,15 @@ require 'rails_helper'
                 end
                 expect(page).to have_content('Agreements')
                 expect(page).to have_content('Create Agreement')
+            end
+
+            it "only allows them to view their own agreements" do
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                expect(page).to have_content(agreement1.length)
+                expect(page).to have_no_content(agreement2.length)
             end
 
             it "allows them to create a new agreement" do
