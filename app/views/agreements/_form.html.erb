@@ -12,21 +12,28 @@
 
   <h1 class="mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">New Agreement</h1>
 
+  <% if @agreement.errors.any? %>
+    <div class="bg-red-100 border border-red-200 text-red-900 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-semibold">There were some errors with your submission</strong>
+      <ul class="mt-3 list-disc list-inside text-sm">
+        <% @agreement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form_with(model: @agreement, local: true) do |form| %>
-     <% if @agreement.errors.any? %>
-      <div class="bg-red-100 border border-red-200 text-red-900 px-4 py-3 rounded relative" role="alert">
-        <strong class="font-semibold">There were some errors with your submission</strong>
-        <ul class="mt-3 list-disc list-inside text-sm">
-          <% @agreement.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
     <!-- Property -->
     <div class="form-group">
       <%= form.label :property_id, "Property", class: "form-label form-label-required" %>
       <%= form.collection_select :property_id, current_user.properties, :id, :display_name, { prompt: "Choose a property" }, class: "form-select w-full" %>
+    </div>
+
+    <!-- Tenant -->
+    <div class="form-group">
+      <%= form.label :tenant_id, "Tenant", class: "form-label form-label-required" %>
+      <%= form.collection_select :tenant_id, @tenants, :id, :full_name, { prompt: "Choose a tenant" }, class: "form-select w-full" %>
     </div>
 
     <h3 class="mb-6 pt-10 text-2xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreement Details</h3>
@@ -70,7 +77,6 @@
 
     <!-- Hidden Fields for IDs -->
     <%= form.hidden_field :landlord_id, value: current_user.id %>
-    <%= form.hidden_field :tenant_id %>
 
     <div class="grid grid-cols-2 gap-6 pt-10">
       <%= link_to "Go Back", agreements_path, class: "btn btn-white text-center" %>

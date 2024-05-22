@@ -3,6 +3,7 @@ class AgreementsController < ApplicationController
   before_action :set_agreement, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
+  before_action :set_tenants, only: [:new, :edit, :create]
 
   def index
     @agreements = policy_scope(Agreement)
@@ -20,9 +21,11 @@ class AgreementsController < ApplicationController
   def create
     @agreement = Agreement.new(agreement_params)
     authorize @agreement
+    @agreement.landlord = current_user
     if @agreement.save
       redirect_to @agreement, notice: 'Agreement was successfully created.'
     else
+      set_tenants
       render :new, status: :unprocessable_entity
     end
   end
@@ -52,7 +55,11 @@ class AgreementsController < ApplicationController
     @agreement = Agreement.find(params[:id])
   end
 
+  def set_tenants
+    @tenants = User.where(role: 'tenant')
+  end
+
   def agreement_params
-    params.require(:agreement).permit(:length, :start_date, :end_date, :notice_period, :monthly_rent_amount, :property_id, :landlord_id, :tenant_id)
+    params.require(:agreement).permit(:length, :start_date, :end_date, :notice_period, :monthly_rent_amount, :property_id, :landlord_id, :tenant_id, :agreement_number)
   end
 end

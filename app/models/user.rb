@@ -2,6 +2,10 @@ class User < ApplicationRecord
   has_person_name
   has_one_attached :avatar
 
+  def full_name
+    "#{first_name} #{last_name}".strip
+  end
+
   enum role: { tenant: 0, landlord: 1, admin: 2 }
 
   has_many :properties, foreign_key: 'owner_id', class_name: 'Property'

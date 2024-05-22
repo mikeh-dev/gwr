@@ -3,7 +3,7 @@ class Agreement < ApplicationRecord
   belongs_to :landlord, class_name: 'User'
   belongs_to :tenant, class_name: 'User'
 
-  validates :length, :start_date, :end_date, :notice_period, :monthly_rent_amount, presence: true
+  validates :length, :start_date, :end_date, :notice_period, :monthly_rent_amount, :property_id, :landlord_id, :tenant_id, :agreement_number, presence: true
   validate :validate_roles
 
   private
