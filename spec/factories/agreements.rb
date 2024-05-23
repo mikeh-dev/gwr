@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :agreement do
+    agreement_number { '1234'}
     length { 12 }
     start_date { Date.today }
     end_date { Date.today + 1.year }

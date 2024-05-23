@@ -24,7 +24,7 @@ require 'rails_helper'
                 expect(page).to have_content('Create Agreement')
             end
 
-            it "only allows them to view their own agreements" do
+            it "only allows them to view their own agreements in index" do
                 visit admin_dashboard_path
                 within('#main-summary') do
                     click_link 'Agreements'
@@ -32,6 +32,14 @@ require 'rails_helper'
                 expect(page).to have_content(agreement1.agreement_number)
                 expect(page).to have_no_content(agreement2.agreement_number)
             end
+
+            it "only allows them to view his own agreement show view" do
+                visit agreement_path(agreement1)
+                expect(page).to have_content(agreement1.agreement_number)
+                visit agreement_path(agreement2)
+                expect(page).to have_content('You are not authorized to access this page.')
+            end
+
 
             it "allows them to create a new agreement" do
                 visit admin_dashboard_path
