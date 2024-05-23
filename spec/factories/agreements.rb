@@ -6,8 +6,8 @@ FactoryBot.define do
     end_date { Date.today + 1.year }
     notice_period { 30 }
     monthly_rent_amount { 1000.00 }
-    association :property
-    association :landlord, factory: [:user, :landlord]
-    association :tenant, factory: [:user, :tenant]
+    property
+    landlord { property.landlord }
+    tenant { create(:user, :tenant) }
   end
 end

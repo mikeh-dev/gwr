@@ -2,9 +2,9 @@ require 'rails_helper'
 
     RSpec.describe "Basic Agreement", type: :system do
         let(:landlord) { create(:user, role: :landlord) }
-        let(:agreement1) { create(:agreement, landlord: landlord) }
-        let(:agreement2) { create(:agreement, landlord: another_landlord) }
-        let(:property) { create(:property) }
+        let(:agreement1) { create(:agreement, landlord: landlord, tenant: tenant, property: property, agreement_number: "1234") }
+        let(:agreement2) { create(:agreement, landlord: another_landlord, tenant: tenant, property: property, agreement_number: "5678") }
+        let(:property) { create(:property, title: 'Old Title', landlord: landlord) }
         let(:tenant) { create(:user, role: :tenant) }
         let(:another_landlord) { create(:user, role: :landlord) }
     
@@ -12,6 +12,8 @@ require 'rails_helper'
 
             before do
                 login_as landlord
+                agreement1
+                agreement2
             end
 
             it "allows them to access agreements index" do
@@ -29,6 +31,7 @@ require 'rails_helper'
                 within('#main-summary') do
                     click_link 'Agreements'
                 end
+                expect(page).to have_content("Agreements")
                 expect(page).to have_content(agreement1.agreement_number)
                 expect(page).to have_no_content(agreement2.agreement_number)
             end
@@ -48,44 +51,46 @@ require 'rails_helper'
                 end
                 click_link 'Create Agreement'
                 expect(page).to have_content('New Agreement')
+
+                select property.title, from: 'Property'
+                select tenant.full_name, from: 'Tenant'
+
                 fill_in 'Length', with: 12
-                fill_in 'Start date', with: Date.today
-                fill_in 'End date', with: Date.today + 1.year
-                fill_in 'Notice period', with: 3
-                fill_in 'Monthly rent amount', with: 1000
-                click_button 'Create Agreement'
+                fill_in 'Start Date', with: Date.today
+                fill_in 'End Date', with: Date.today + 1.year
+                fill_in 'Notice Period', with: 3
+                fill_in 'Monthly Rent Amount', with: 1000
+                fill_in 'Agreement Number', with: '1234'
+                click_button 'Save Agreement'
                 expect(page).to have_content('Agreement was successfully created.')
             end
 
             it "allows them to view an agreement" do
-                agreement = create(:agreement)
-                visit admin_dashboard_path
-                within('#main-summary') do
-                    click_link 'Agreements'
-                end
-                click_link 'Show'
+                visit agreement_path(agreement1)
                 expect(page).to have_content('Agreement')
-                expect(page).to have_content(agreement.length)
-                expect(page).to have_content(agreement.start_date)
-                expect(page).to have_content(agreement.end_date)
-                expect(page).to have_content(agreement.notice_period)
-                expect(page).to have_content(agreement.monthly_rent_amount)
+                expect(page).to have_content(agreement1.length)
+                expect(page).to have_content(agreement1.formatted_start_date)
+                expect(page).to have_content(agreement1.formatted_end_date)
+                expect(page).to have_content(agreement1.notice_period)
+                expect(page).to have_content(agreement1.monthly_rent_amount)
             end
 
             it "allows them to edit an agreement" do
-                agreement = create(:agreement)
                 visit admin_dashboard_path
                 within('#main-summary') do
                     click_link 'Agreements'
                 end
-                click_link 'Edit'
+                within(all('.relative.md\\:flex.md\\:justify-end.justify-start').first) do
+                    find('button#agreement-row-dropdown').click
+                    find('a', text: 'Edit Agreement').click
+                end
                 expect(page).to have_content('Edit Agreement')
                 fill_in 'Length', with: 12
-                fill_in 'Start date', with: Date.today
-                fill_in 'End date', with: Date.today + 1.year
-                fill_in 'Notice period', with: 3
-                fill_in 'Monthly rent amount', with: 1000
-                click_button 'Update Agreement'
+                fill_in 'Start Date', with: Date.today
+                fill_in 'End Date', with: Date.today + 1.year
+                fill_in 'Notice Period', with: 3
+                fill_in 'Monthly Rent Amount', with: 1000
+                click_button 'Save Agreement'
                 expect(page).to have_content('Agreement was successfully updated.')
             end
 

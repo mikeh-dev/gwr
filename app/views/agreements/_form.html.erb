@@ -5,12 +5,18 @@
         <%= link_to "Agreements", agreements_path, class: "text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-600" %>
       </li>
       <li>
-        <p>New Agreement</p>
+        <% if @agreement.new_record? %>
+          <p>New Agreement</p>
+        <% else %>
+          <p>Edit Agreement</p>
+        <% end %>
       </li>
     </ul>
   </nav>
 
-  <h1 class="mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">New Agreement</h1>
+  <h1 class="mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">
+    <%= @agreement.new_record? ? "New Agreement" : "Edit Agreement" %>
+  </h1>
 
   <% if @agreement.errors.any? %>
     <div class="bg-red-100 border border-red-200 text-red-900 px-4 py-3 rounded relative" role="alert">
