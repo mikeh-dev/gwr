@@ -6,6 +6,8 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}".strip
   end
 
+  validates :first_name, :last_name, presence: true
+
   enum role: { tenant: 0, landlord: 1, admin: 2 }
 
   has_many :properties, foreign_key: 'owner_id', class_name: 'Property'
