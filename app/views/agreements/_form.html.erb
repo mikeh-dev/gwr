@@ -33,7 +33,7 @@
     <!-- Property -->
     <div class="form-group">
       <%= form.label :property_id, "Property", class: "form-label form-label-required" %>
-      <%= form.collection_select :property_id, current_user.properties, :id, :display_name, { prompt: "Choose a property" }, class: "form-select w-full" %>
+      <%= form.collection_select :property_id, @properties, :id, :display_name, { prompt: "Choose a property" }, class: "form-select w-full" %>
     </div>
 
     <!-- Tenant -->

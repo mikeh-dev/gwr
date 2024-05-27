@@ -7,6 +7,7 @@ require 'rails_helper'
         let(:property) { create(:property, title: 'Old Title', landlord: landlord) }
         let(:tenant) { create(:user, role: :tenant) }
         let(:another_landlord) { create(:user, role: :landlord) }
+        let(:admin) { create(:user, role: :admin) }
     
         context "when user is signed in as landlord" do
 
@@ -101,6 +102,77 @@ require 'rails_helper'
                     click_link 'Agreements'
                 end
                 expect(page).to have_no_link('Delete')
+            end
+        end
+
+        context "when user is signed in as admin" do
+            before do
+                login_as admin
+                agreement1
+                agreement2
+            end
+
+            it "allows them to access agreements index" do
+                visit admin_dashboard_path
+                expect(page).to have_content('Agreements', count: 2)
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                expect(page).to have_content('Agreements')
+                expect(page).to have_content('Create Agreement')
+            end
+
+            it "allows them to view all agreements in index" do
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                expect(page).to have_content("Agreements")
+                expect(page).to have_content(agreement1.agreement_number)
+                expect(page).to have_content(agreement2.agreement_number)
+            end
+
+            it "allows them to view any agreement show view" do
+                visit agreement_path(agreement1)
+                expect(page).to have_content(agreement1.agreement_number)
+                visit agreement_path(agreement2)
+                expect(page).to have_content(agreement2.agreement_number)
+            end
+
+            it "allows them to create a new agreement" do
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                click_link 'Create Agreement'
+                expect(page).to have_content('New Agreement')
+
+                expect(page).to have_select('Property', with_options: ['Old Title'])
+
+                select property.title, from: 'Property'
+                select tenant.full_name, from: 'Tenant'
+                
+
+                fill_in 'Length', with: 12
+                fill_in 'Start Date', with: Date.today
+                fill_in 'End Date', with: Date.today + 1.year
+                fill_in 'Notice Period', with: 3
+                fill_in 'Monthly Rent Amount', with: 1000
+                fill_in 'Agreement Number', with: '1234'
+                click_button 'Save Agreement'
+                expect(page).to have_content('Agreement was successfully created.')
+            end
+
+            it "allows them to delete an agreement" do
+                visit admin_dashboard_path
+                within('#main-summary') do
+                    click_link 'Agreements'
+                end
+                within(all('.relative.md\\:flex.md\\:justify-end.justify-start').first) do
+                    find('button#agreement-row-dropdown').click
+                    find('a', text: 'Delete Agreement').click
+                end
+                expect(page).to have_content('Agreement was successfully deleted.')
             end
         end
     end

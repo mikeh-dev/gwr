@@ -3,7 +3,8 @@ class AgreementsController < ApplicationController
   before_action :set_agreement, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
-  before_action :set_tenants, only: [:new, :edit, :create]
+  before_action :set_tenants_and_properties, only: [:new, :edit, :create, :update]
+  
 
   def index
     @agreements = policy_scope(Agreement)
@@ -24,11 +25,17 @@ class AgreementsController < ApplicationController
   def create
     @agreement = Agreement.new(agreement_params)
     authorize @agreement
-    @agreement.landlord = current_user
+    property = Property.find(params[:agreement][:property_id])
+    @agreement.landlord = property.landlord
+
+    Rails.logger.debug("Landlord set to: #{@agreement.landlord.full_name} (Role: #{@agreement.landlord.role})")
+    Rails.logger.debug("Agreement details: #{@agreement.inspect}")
+
+
     if @agreement.save
       redirect_to @agreement, notice: 'Agreement was successfully created.'
     else
-      set_tenants
+      Rails.logger.debug("Agreement errors: #{@agreement.errors.full_messages}")
       render :new, status: :unprocessable_entity
     end
   end
@@ -49,7 +56,7 @@ class AgreementsController < ApplicationController
   def destroy
     authorize @agreement
     @agreement.destroy
-    redirect_to agreements_url, notice: 'Agreement was successfully destroyed.'
+    redirect_to agreements_url, notice: 'Agreement was successfully deleted.'
   end
 
   private
@@ -58,8 +65,9 @@ class AgreementsController < ApplicationController
     @agreement = Agreement.find(params[:id])
   end
 
-  def set_tenants
+  def set_tenants_and_properties
     @tenants = User.where(role: 'tenant')
+    @properties = current_user.admin? ? Property.all : current_user.properties
   end
 
   def agreement_params
