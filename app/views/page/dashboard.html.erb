@@ -35,12 +35,12 @@
 
       <%= link_to properties_path, class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Properties</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @properties_count %></p>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @properties.count %></p>
       <% end %>
 
       <%= link_to agreements_path, class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Agreements</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @agreements_count %></p>
+        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @agreements.count %></p>
       <% end %>
     </div>
   </div>

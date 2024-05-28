@@ -79,12 +79,13 @@ class PageController < ApplicationController
 
 	def dashboard
 		if current_user.admin?
-			@properties_count = Property.all.count
-			@agreements_count = Agreement.all.count
+			@properties = Property.all
+			@agreements = Agreement.all
 			@properties = Property.all
 		else
-			@properties_count = current_user.properties.count
-			@agreements_count = current_user.agreements.count
+			@agreements = @agreements_as_landlord_count + @agreements_as_tenant_count
+			@agreements_as_landlord = current_user.agreements_as_landlord.exists? ? current_user.agreements_as_landlord : []
+			@agreements_as_tenant = current_user.agreements_as_tenant.exists? ? current_user.agreements_as_tenant : []
 			@properties = current_user.properties
 		end
 		
