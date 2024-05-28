@@ -3,7 +3,11 @@ class PropertiesController < ApplicationController
   before_action :authorize_landlord!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @properties = current_user.properties
+    if current_user.admin?
+      @properties = Property.all
+    else
+      @properties = Property.where(owner_id: current_user.id)
+    end
   end
 
   def show
