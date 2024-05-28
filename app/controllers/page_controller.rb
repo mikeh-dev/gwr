@@ -83,9 +83,9 @@ class PageController < ApplicationController
 			@agreements = Agreement.all
 			@properties = Property.all
 		else
-			@agreements = @agreements_as_landlord_count + @agreements_as_tenant_count
 			@agreements_as_landlord = current_user.agreements_as_landlord.exists? ? current_user.agreements_as_landlord : []
 			@agreements_as_tenant = current_user.agreements_as_tenant.exists? ? current_user.agreements_as_tenant : []
+			@agreements = @agreements_as_landlord + @agreements_as_tenant
 			@properties = current_user.properties
 		end
 		

@@ -70,8 +70,8 @@ RSpec.describe AgreementPolicy do
       expect(subject.new(admin, agreement)).to permit_action(:update)
     end
 
-    it 'allows access for landlord' do
-      expect(subject.new(landlord, agreement)).to permit_action(:update)
+    it 'denies access for landlord' do
+      expect(subject.new(landlord, agreement)).to forbid_action(:update)
     end
 
     it 'denies access for tenant' do

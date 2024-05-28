@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_landlord!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorize_landlord!, only: [:new, :create, :edit, :update]
+  before_action :check_owner, only: [:edit, :update, :destroy, :show]
 
   def index
     if current_user.admin?
@@ -50,8 +51,15 @@ class PropertiesController < ApplicationController
   private
 
   def authorize_landlord!
-    unless current_user.landlord? || current_user.role == 'admin'
-      redirect_to properties_path, alert: 'You are not authorised to access this page.'
+    unless current_user.landlord? || current_user.admin?
+      redirect_to root_path, notice: 'You are not authorized to access this page.'
+    end 
+  end
+
+  def check_owner
+    @property = Property.find(params[:id])
+    unless current_user.admin? || @property.owner_id == current_user.id || @property.agreements.where(tenant_id: current_user.id).exists?
+      redirect_to root_path, notice: 'You are not authorized to access this page.'
     end
   end
 

@@ -76,23 +76,9 @@ require 'rails_helper'
                 expect(page).to have_content(agreement1.monthly_rent_amount)
             end
 
-            it "allows them to edit an agreement" do
-                visit admin_dashboard_path
-                within('#main-summary') do
-                    click_link 'Agreements'
-                end
-                within(all('.relative.md\\:flex.md\\:justify-end.justify-start').first) do
-                    find('button#agreement-row-dropdown').click
-                    find('a', text: 'Edit Agreement').click
-                end
-                expect(page).to have_content('Edit Agreement')
-                fill_in 'Length', with: 12
-                fill_in 'Start Date', with: Date.today
-                fill_in 'End Date', with: Date.today + 1.year
-                fill_in 'Notice Period', with: 3
-                fill_in 'Monthly Rent Amount', with: 1000
-                click_button 'Save Agreement'
-                expect(page).to have_content('Agreement was successfully updated.')
+            it "does not allow them to edit an agreement" do
+                visit edit_agreement_path(agreement1)
+                expect(page).to have_content('You are not authorized to access this page.')
             end
 
             it "does not allow them to delete an agreement" do
@@ -107,6 +93,8 @@ require 'rails_helper'
         context "when user is signed in as admin" do
             before do
                 login_as admin
+                agreement1
+                agreement2
             end
 
             it "allows them to access agreements index" do
@@ -161,15 +149,12 @@ require 'rails_helper'
             end
 
             it "allows them to delete an agreement" do
-                visit admin_dashboard_path
-                within('#main-summary') do
-                    click_link 'Agreements'
-                end
+                visit agreements_path
                 within(all('.relative.md\\:flex.md\\:justify-end.justify-start').first) do
                     find('button#agreement-row-dropdown').click
                     find('a', text: 'Delete Agreement').click
                 end
-                expect(page).to have_content('Agreement was successfully deleted.')
+                expect(page).to have_content('Edit Agreement')
             end
         end
     end
