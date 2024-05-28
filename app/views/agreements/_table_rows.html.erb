@@ -23,9 +23,11 @@
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100">
                   <%= agreement.monthly_rent_amount %>
                 </td>
+                <% if current_user.admin? %>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans">
-                  <%= agreement[:price] %>
+                  <%= agreement.landlord.full_name %>
                 </td>
+                <% end %>
                 <td class="align-top pt-2">
                   <div data-controller="dropdown" class="relative md:flex md:justify-end justify-start">
                     <button id="agreement-row-dropdown" class="flex relative z-40 md:w-10 md:h-9 py-3 px-4 md:px-0 md:py-0 w-full md:rounded-xl rounded-full bg-white focus:ring-4 focus:ring-zinc-300/30 items-center md:justify-center justify-between border md:border-transparent focus:border-zinc-300 border-zinc-300/80  hover:border-zinc-300  dark:hover:bg-zinc-800 dark:hover:border-zinc-600 dark:focus:bg-zinc-800 dark:focus:border-zinc-500 dark:bg-zinc-700/60 dark:text-white dark:border-zinc-500/30 dark:shadow-zinc-950/40 dark:hover:bg-zinc-800/90 dark:focus:ring-zinc-700/80 dark:focus:border-zinc-400/80"

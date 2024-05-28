@@ -1,7 +1,7 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_agreement, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: :index
+
   after_action :verify_policy_scoped, only: :index
   before_action :set_tenants_and_properties, only: [:new, :edit, :create, :update]
   
@@ -23,15 +23,11 @@ class AgreementsController < ApplicationController
   end
 
   def create
-    @agreement = Agreement.new(agreement_params)
-    authorize @agreement
+    @agreement = Agreement.new(agreement_params.except(:landlord_id))
     property = Property.find(params[:agreement][:property_id])
     @agreement.landlord = property.landlord
-
-    Rails.logger.debug("Landlord set to: #{@agreement.landlord.full_name} (Role: #{@agreement.landlord.role})")
-    Rails.logger.debug("Agreement details: #{@agreement.inspect}")
-
-
+    authorize @agreement
+  
     if @agreement.save
       redirect_to @agreement, notice: 'Agreement was successfully created.'
     else
@@ -40,18 +36,24 @@ class AgreementsController < ApplicationController
     end
   end
 
-  def edit
-    authorize @agreement
-  end
-
   def update
+    @agreement = Agreement.find(params[:id])
     authorize @agreement
-    if @agreement.update(agreement_params)
+
+    if @agreement.update(agreement_params.except(:landlord_id))
+      property = Property.find(params[:agreement][:property_id])
+      @agreement.update(landlord: property.landlord)
+
       redirect_to @agreement, notice: 'Agreement was successfully updated.'
     else
+      Rails.logger.debug("Agreement errors: #{@agreement.errors.full_messages}")
       render :edit, status: :unprocessable_entity
     end
   end
+
+  def edit
+  end
+
 
   def destroy
     authorize @agreement
@@ -71,6 +73,6 @@ class AgreementsController < ApplicationController
   end
 
   def agreement_params
-    params.require(:agreement).permit(:length, :start_date, :end_date, :notice_period, :monthly_rent_amount, :property_id, :landlord_id, :tenant_id, :agreement_number)
+    params.require(:agreement).permit(:property_id, :tenant_id, :length, :monthly_rent_amount, :start_date, :end_date, :notice_period, :agreement_number, :status, :price)
   end
 end

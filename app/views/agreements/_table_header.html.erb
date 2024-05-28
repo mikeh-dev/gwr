@@ -20,5 +20,9 @@
             <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
               Rent
             </th>
-            <th></th>
+            <% if current_user.admin? %>
+              <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
+                Landlord
+              </th>
+            <% end %>
           </thead>

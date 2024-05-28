@@ -1,6 +1,6 @@
 class AgreementPolicy < ApplicationPolicy
   def create?
-    user.landlord? || user.admin?
+    user.role == 'landlord' || user.admin?
   end
 
   def show?
@@ -12,7 +12,7 @@ class AgreementPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || user == record.landlord
+    user.admin?
   end
 
   def destroy?

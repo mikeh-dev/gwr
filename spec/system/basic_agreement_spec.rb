@@ -96,7 +96,6 @@ require 'rails_helper'
             end
 
             it "does not allow them to delete an agreement" do
-                agreement = create(:agreement)
                 visit admin_dashboard_path
                 within('#main-summary') do
                     click_link 'Agreements'
@@ -108,8 +107,6 @@ require 'rails_helper'
         context "when user is signed in as admin" do
             before do
                 login_as admin
-                agreement1
-                agreement2
             end
 
             it "allows them to access agreements index" do
