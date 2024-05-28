@@ -78,10 +78,17 @@ class PageController < ApplicationController
 	end
 
 	def dashboard
-		@properties_count = current_user.properties.count
-		@properties = current_user.properties
+		if current_user.admin?
+			@properties_count = Property.all.count
+			@agreements_count = Agreement.all.count
+			@properties = Property.all
+		else
+			@properties_count = current_user.properties.count
+			@agreements_count = current_user.agreements.count
+			@properties = current_user.properties
+		end
+		
 		render layout: 'admin'
-
 	end
 
 	def pricing
