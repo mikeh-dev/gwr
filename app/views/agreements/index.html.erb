@@ -1,9 +1,11 @@
 <div class="container mx-auto px-4 md:py-16 py-6 md:mb-16">
   <div class="md:flex items-center justify-between">
     <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreements</h1>
-    <div class="md:flex items-center md:space-x-6">
-      <%= link_to "Create Agreement", new_agreement_path, class: "btn btn-primary md:mt-0 mt-6" %>
-    </div>
+    <% if current_user.admin? || current_user.landlord? %>
+      <div class="md:flex items-center md:space-x-6">
+        <%= link_to "Create Agreement", new_agreement_path, class: "btn btn-primary md:mt-0 mt-6" %>
+      </div>
+    <% end %>
   </div>
 
   <div class="my-6 font-heading" data-controller="tabs"
