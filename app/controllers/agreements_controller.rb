@@ -1,7 +1,6 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_agreement, only: [:show, :edit, :update, :destroy]
-
   after_action :verify_policy_scoped, only: :index
   before_action :set_tenants_and_properties, only: [:new, :edit, :create, :update]
   
@@ -37,8 +36,9 @@ class AgreementsController < ApplicationController
   end
 
   def update
-    @agreement = Agreement.find(params[:id])
     authorize @agreement
+
+    @agreement = Agreement.find(params[:id])
 
     if @agreement.update(agreement_params.except(:landlord_id))
       property = Property.find(params[:agreement][:property_id])
@@ -52,6 +52,7 @@ class AgreementsController < ApplicationController
   end
 
   def edit
+    authorize @agreement
   end
 
 

@@ -54,13 +54,13 @@
                           <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
                         <% end %>
                       </li>
+                      <% if current_user.admin? %>
                       <li>
                         <%= link_to edit_agreement_path(agreement), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
                           <span>Edit Agreement</span>
                           <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
                         <% end %>
                       </li>
-                      <% if current_user.admin? %>
                       <li>
                         <%= link_to agreement_path(agreement), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
                           <span>Delete Agreement</span>

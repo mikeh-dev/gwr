@@ -19,6 +19,10 @@ class AgreementPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def edit?
+    update?
+  end
+
   class Scope < Scope
     def resolve
       if user.admin?
