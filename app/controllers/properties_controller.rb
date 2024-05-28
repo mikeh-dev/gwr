@@ -7,7 +7,7 @@ class PropertiesController < ApplicationController
     if current_user.admin?
       @properties = Property.all
     else
-      @properties = Property.where(owner_id: current_user.id)
+      @properties = Property.where(owner_id: current_user.id).or(Property.where(id: Agreement.where(tenant_id: current_user.id).pluck(:property_id)))
     end
   end
 
