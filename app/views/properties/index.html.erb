@@ -181,11 +181,19 @@
             </div>
             <div class="md:w-2/12 w-1/4">
               <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Tenant</span>
-              <p>Tenant Name Here</p>
+              <p>
+                <% if property.agreements.any? %>
+                  <%= property.agreements.last.tenant.full_name %>
+                  <p><small class="text-zinc-500 dark:text-zinc-400 font-sans"><%= property.agreements.last.tenant.email %></small></p>
+                <% else %>
+                  No Tenant
+                <% end %>
+              </p>
             </div>
               <div class="md:w-2/12 w-1/4">
               <span class="md:hidden text-zinc-600 dark:text-zinc-400 text-sm block mb-2">Landlord</span>
               <%= property.landlord.full_name %>
+              <p><small class="text-zinc-500 dark:text-zinc-400 font-sans"><%= property.landlord.email %></small></p>
             </div>
             <div class="md:w-1/12 w-full md:pt-0 pt-4">
               <div data-controller="dropdown" class="relative md:flex md:justify-end justify-start">
