@@ -86,7 +86,10 @@ class PageController < ApplicationController
 			@agreements_as_landlord = current_user.agreements_as_landlord.exists? ? current_user.agreements_as_landlord : []
 			@agreements_as_tenant = current_user.agreements_as_tenant.exists? ? current_user.agreements_as_tenant : []
 			@agreements = @agreements_as_landlord + @agreements_as_tenant
-			@properties = current_user.properties
+			owned_properties = Property.where(owner_id: current_user.id)
+			tenant_property_ids = Agreement.where(tenant_id: current_user.id).pluck(:property_id).uniq
+			tenant_properties = Property.where(id: tenant_property_ids)
+			@properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
 		end
 		
 		render layout: 'admin'

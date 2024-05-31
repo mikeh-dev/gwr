@@ -10,17 +10,10 @@ class PropertiesController < ApplicationController
       owned_properties = Property.where(owner_id: current_user.id)
       tenant_property_ids = Agreement.where(tenant_id: current_user.id).pluck(:property_id).uniq
       tenant_properties = Property.where(id: tenant_property_ids)
-      
       @properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
-      
-      Rails.logger.debug "Current User: #{current_user.id}"
-      Rails.logger.debug "Owned Properties: #{owned_properties.pluck(:id)}"
-      Rails.logger.debug "Tenant Properties: #{tenant_property_ids}"
-      Rails.logger.debug "Combined Properties: #{@properties.pluck(:id)}"
     end
   end
   
-
   def show
     @property = Property.find(params[:id])
   end
@@ -76,5 +69,4 @@ class PropertiesController < ApplicationController
   def property_params
     params.require(:property).permit(:title, :address, :postcode, :city, :property_type, :owner_id, :notes, tenant_ids: [])
   end
-
 end
