@@ -9,4 +9,8 @@ class Property < ApplicationRecord
   def display_name
     "#{title} - #{address}"
   end
+
+  def current_agreement
+    agreements.where('start_date <= ? AND end_date >= ?', Date.today, Date.today).first
+  end
 end

@@ -1,8 +1,5 @@
 <tr class="md:whitespace-normal whitespace-nowrap">
-                <td class="align-top md:px-0 p-4 md:whitespace-normal whitespace-nowrap">
-                  <span
-                    class="text-xs font-medium rounded-full font-sans bg-blue-50 text-blue-600 px-2 py-1 tracking-tight dark:bg-blue-500/20 dark:text-blue-200"><%= agreement[:status] %></span>
-                </td>
+              
                 <td class="align-top md:px-0 p-4 md:whitespace-normal whitespace-nowrap">
                   <p><%= link_to agreement.agreement_number, agreement_path(agreement), class: "dark:text-zinc-100" %></p>
                   <p><small class="text-zinc-500 dark:text-zinc-400 font-sans"><%= agreement.tenant.full_name %></small></p>
@@ -51,6 +48,12 @@
                       <li>
                         <%= link_to agreement_path(agreement), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
                           <span>View Agreement</span>
+                          <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
+                        <% end %>
+                      </li>
+                        <li>
+                        <%= link_to agreement_path(agreement), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
+                          <span>Request Amendment</span>
                           <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
                         <% end %>
                       </li>
