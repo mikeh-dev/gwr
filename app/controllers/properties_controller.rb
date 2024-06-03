@@ -7,14 +7,6 @@ class PropertiesController < ApplicationController
   def index
     @properties = policy_scope(Property)
     authorize Property
-    if current_user.admin?
-      @properties = Property.all
-    else
-      owned_properties = Property.where(owner_id: current_user.id)
-      tenant_property_ids = Agreement.where(tenant_id: current_user.id).pluck(:property_id).uniq
-      tenant_properties = Property.where(id: tenant_property_ids)
-      @properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
-    end
   end
   
   def show
