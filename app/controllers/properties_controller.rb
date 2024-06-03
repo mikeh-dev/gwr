@@ -4,7 +4,14 @@ class PropertiesController < ApplicationController
   before_action :check_owner, only: [:edit, :update, :destroy, :show]
 
   def index
-    load_properties_and_agreements
+    if current_user.admin?
+      @properties = Property.all
+    else
+      owned_properties = Property.where(owner_id: current_user.id)
+      tenant_property_ids = Agreement.where(tenant_id: current_user.id).pluck(:property_id).uniq
+      tenant_properties = Property.where(id: tenant_property_ids)
+      @properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
+    end
   end
   
   def show

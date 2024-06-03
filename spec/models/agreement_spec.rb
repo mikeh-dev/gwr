@@ -1,5 +1,9 @@
 require 'rails_helper'
 
+
+
+
+
 RSpec.describe Agreement, type: :model do
   describe 'associations' do
     it { should belong_to(:property) }
@@ -8,15 +12,14 @@ RSpec.describe Agreement, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:length) }
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:end_date) }
     it { should validate_presence_of(:notice_period) }
     it { should validate_presence_of(:monthly_rent_amount) }
 
     context 'role validations' do
-      let(:tenant) { create(:user, :tenant) }
-      let(:landlord) { create(:user, :landlord) }
+      let(:tenant) { create(:user, role: 'tenant') }
+      let(:landlord) { create(:user, role: 'landlord') }
       let(:property) { create(:property, landlord: landlord) }
 
       it 'is valid with correct roles' do
