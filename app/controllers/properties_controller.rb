@@ -23,11 +23,13 @@ class PropertiesController < ApplicationController
 
   def new
     @property = Property.new
+    authorize @property
   end
 
   def create
     @property = Property.new(property_params)
     @property.owner_id = current_user.id
+    authorize @property
     if @property.save
       redirect_to @property, notice: 'Property was successfully created.'
     else
@@ -36,11 +38,9 @@ class PropertiesController < ApplicationController
   end
 
   def edit
-    @property = Property.find(params[:id])
   end
 
   def update
-    @property = Property.find(params[:id])
     if @property.update(property_params)
       redirect_to @property, notice: 'Property was successfully updated.'
     else
@@ -49,7 +49,6 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
-    @property = Property.find(params[:id])
     @property.destroy
     redirect_to properties_path, notice: 'Property was successfully deleted.'
   end
@@ -75,5 +74,9 @@ class PropertiesController < ApplicationController
 
   def set_property
     @property = Property.find(params[:id])
+  end
+
+  def authorize_property
+    authorize @property
   end
 end
