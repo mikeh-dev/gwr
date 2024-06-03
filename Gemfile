@@ -33,4 +33,5 @@ group :test do
   gem "webdrivers"
   gem "faker"
   gem "shoulda-matchers"
+  gem 'pundit-matchers', '~> 3.1'
 end
