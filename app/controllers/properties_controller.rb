@@ -2,8 +2,11 @@ class PropertiesController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_landlord!, only: [:new, :create, :edit, :update]
   before_action :check_owner, only: [:edit, :update, :destroy, :show]
+  before_action :set_property, only: [:show, :edit, :update, :destroy]
 
   def index
+    @properties = policy_scope(Property)
+    authorize Property
     if current_user.admin?
       @properties = Property.all
     else
@@ -15,7 +18,7 @@ class PropertiesController < ApplicationController
   end
   
   def show
-    @property = Property.find(params[:id])
+    authorize @property
   end
 
   def new
@@ -68,5 +71,9 @@ class PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(:title, :address, :postcode, :city, :property_type, :owner_id, :notes, tenant_ids: [])
+  end
+
+  def set_property
+    @property = Property.find(params[:id])
   end
 end
