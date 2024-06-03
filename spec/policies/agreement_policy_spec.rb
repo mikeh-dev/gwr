@@ -14,4 +14,19 @@ RSpec.describe AgreementPolicy, type: :policy do
 
         it { is_expected.to permit_actions(%i[create show index update destroy edit]) }
     end
+
+    context 'as a landlord' do
+        let(:user) { landlord }
+    
+        it { is_expected.to permit_actions(%i[create show index]) }
+        it { is_expected.to forbid_actions(%i[update destroy edit]) }
+    end
+
+    context 'as a tenant' do
+        let(:user) { tenant }
+    
+        it { is_expected.to permit_actions(%i[show index]) }
+        it { is_expected.to forbid_actions(%i[update destroy edit create]) }
+    end
+
 end
