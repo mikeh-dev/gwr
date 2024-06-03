@@ -1,7 +1,5 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_landlord!, only: [:new, :create, :edit, :update]
-  before_action :check_owner, only: [:edit, :update, :destroy, :show]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -46,20 +44,7 @@ class PropertiesController < ApplicationController
   end
 
   private
-
-  def authorize_landlord!
-    unless current_user.landlord? || current_user.admin?
-      redirect_to root_path, notice: 'You are not authorized to access this page.'
-    end 
-  end
-
-  def check_owner
-    @property = Property.find(params[:id])
-    unless current_user.admin? || @property.owner_id == current_user.id || @property.agreements.where(tenant_id: current_user.id).exists?
-      redirect_to root_path, notice: 'You are not authorized to access this page.'
-    end
-  end
-
+  
   def property_params
     params.require(:property).permit(:title, :address, :postcode, :city, :property_type, :owner_id, :notes, tenant_ids: [])
   end
@@ -68,7 +53,4 @@ class PropertiesController < ApplicationController
     @property = Property.find(params[:id])
   end
 
-  def authorize_property
-    authorize @property
-  end
 end

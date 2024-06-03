@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 	root to: 'page#home'
 
   	devise_for :users
+	resources :users, only: [:show]
 
 	resources :properties
 	resources :agreements
