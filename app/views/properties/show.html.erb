@@ -14,7 +14,11 @@
     </nav>
     <div class="flex flex-wrap items-center justify-between pb-6 md:pb-0">
       <div class="flex items-center space-x-3 mb-6 flex-1">
-        <%= image_tag @property.property_images.first, alt: "Property image", class: "w-16 h-16 rounded-full border-2 border-white" %>
+        <% if @property.property_images.attached? %>
+          <%= image_tag @property.property_images.first, alt: "Property image", class: "w-16 h-16 rounded-full border-2 border-white" %>
+        <% else %>
+          <%= image_tag "https://via.placeholder.com/150", alt: "Property image", class: "w-16 h-16 rounded-full border-2 border-white" %>
+        <% end %>
         <div>
           <h1 class="pb-1 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight"><%= @property.title %></h1>
           <div class="text-sm text-zinc-600 pl-1 pb-1 dark:text-zinc-400">
@@ -51,6 +55,12 @@
     <div>
       <% if @property.property_images.attached? %>
         <%= image_tag @property.property_images.first, class: "rounded-xl w-full object-cover h-full" %>
+        <% else %>
+          <%= link_to edit_property_path(@property) do %>
+            <div class="rounded-xl w-full h-64 bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500">Add property photo's</span>
+            </div>
+          <% end %>
       <% end %>
     </div>
 
