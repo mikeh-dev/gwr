@@ -23,7 +23,7 @@
     </p>
 
     <div id="dashboard-boxed-links" class="grid md:grid-cols-4 grid-cols-2 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
-      <%= link_to (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600" do %>
+      <%= link_to (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "hidden bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Inbox</h3>
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
       <% end %>
@@ -140,7 +140,7 @@
       </div>
       <div>
         <h5 class="text-base font-medium font-heading text-zinc-700 dark:text-zinc-100 tracking-tight">Join the forum</h5>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400">Network with fellow hosts.</p>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400">Network with fellow landlords.</p>
       </div>
     <% end %>
 

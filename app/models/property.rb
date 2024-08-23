@@ -1,7 +1,7 @@
 class Property < ApplicationRecord
   belongs_to :landlord, class_name: 'User', foreign_key: 'owner_id'
   has_many :agreements
-
+  has_many_attached :property_images
 
   validates :title, :address, :postcode, :city, :property_type, presence: true
 

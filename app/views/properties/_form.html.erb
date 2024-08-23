@@ -66,6 +66,13 @@
         <%= form.select :property_type, options_for_select([['Choose a Property type', '']] + Property.property_types.keys.map { |type| [type.titleize, type] }, selected: form.object.property_type), {}, { class: "form-select w-full" } %> 
       </div>
     </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 form-group">
+      <%= form.label :property_images, class: "form-label" %>
+      <%= form.label class: "block" do %>
+        <%= form.file_field :property_images, multiple: true, class: "form-file" %>
+      <% end %>
+    </div>
 
     <div class="form-group">
       <%= form.label :notes, class: "form-label" %>

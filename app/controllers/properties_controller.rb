@@ -46,7 +46,7 @@ class PropertiesController < ApplicationController
   private
   
   def property_params
-    params.require(:property).permit(:title, :address, :postcode, :city, :property_type, :owner_id, :notes, tenant_ids: [])
+    params.require(:property).permit(:title, :address, :postcode, :city, :property_type, :owner_id, :notes, tenant_ids: [], property_images: [])
   end
 
   def set_property
