@@ -64,6 +64,33 @@
   </div>
 </div>
 
+<div class="container mx-auto px-4 pb-24 pt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Address</p>
+        </div>
+        <div class="grid grid-cols-1 gap-x-3 gap-y-4">
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @property.address%></span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @property.city %></span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @property.postcode %></span>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Tenant Details</p>
+        </div>
+        <div class="grid grid-cols-1 gap-x-3 gap-y-4">
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Mr & Mrs Tenant</span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Email Address</span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Contact Number</span>
+        </div>
+      </div>
+  </div>
+</div>
+
   <div class="container mx-auto px-4 pb-24 pt-8">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-8">
       <div>
