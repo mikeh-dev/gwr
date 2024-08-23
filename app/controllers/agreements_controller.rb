@@ -74,6 +74,6 @@ class AgreementsController < ApplicationController
   end
 
   def agreement_params
-    params.require(:agreement).permit(:property_id, :tenant_id, :length, :monthly_rent_amount, :start_date, :end_date, :notice_period, :agreement_number, :status, :price)
+    params.require(:agreement).permit(:property_id, :tenant_id, :length, :monthly_rent_amount, :start_date, :end_date, :notice_period, :agreement_number, :status, :price, move_in_images: [])
   end
 end

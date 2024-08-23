@@ -12,17 +12,21 @@
     </nav>
     <div class="flex flex-wrap items-center justify-between pb-6 md:pb-0">
       <div class="flex items-center space-x-3 mb-6 flex-1">
-        <%= image_tag demo_avatar_url(id: "12", variant: "men"), alt: "Ethan", class: "w-16 h-16 rounded-full border-2 border-white" %>
+        <% if @agreement.property.property_images.attached? %>
+          <%= image_tag @agreement.property.property_images.first, alt: "Agreement Property Image", class: "w-16 h-16 rounded-full border-2 border-white" %>
+        <% else %>
+          <%= image_tag "https://via.placeholder.com/150", alt: "Agreement Property Image", class: "w-16 h-16 rounded-full border-2 border-white" %>
+        <% end %>
         <div>
-          <h1 class="pb-1 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Jared Sanders</h1>
+          <h1 class="pb-1 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight"><%= @agreement.property.title %></h1>
           <div class="text-sm text-zinc-600 pl-1 pb-1 dark:text-zinc-400">
-            4.9 rating &bull; <%= link_to "12 ratings", "#",class: "underline" %> &bull; <%= link_to "View profile", "#", class: "underline" %>
+            <%= link_to "12 Cases", "#",class: "underline" %> &bull; <%= link_to "View tenant", "#", class: "underline" %>
           </div>
         </div>
       </div>
       <div class="flex md:justify-end space-x-3 md:w-auto w-full">
-        <%= link_to "Message Jared", (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "btn btn-primary" %>
-        <%= link_to "Edit Booking", (defined?(admin_edit_booking_path) ? admin_edit_booking_path : "#"), class: "btn btn-white" %>
+        <%= link_to "Message Tenant", (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "btn btn-primary" %>
+        <%= link_to "Edit Agreement", (defined?(edit_agreement_path) ? edit_agreement_path : "#"), class: "btn btn-white" %>
       </div>
     </div>
   </div>

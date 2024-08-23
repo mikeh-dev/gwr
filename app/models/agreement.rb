@@ -15,6 +15,8 @@ class Agreement < ApplicationRecord
   validates :length, :start_date, :end_date, :notice_period, :monthly_rent_amount, :property_id, :landlord_id, :tenant_id, :agreement_number, presence: true
   validate :validate_roles
 
+  has_many_attached :move_in_images
+
   def formatted_start_date
     start_date.strftime("%d/%m/%y") if start_date.present?
   end
