@@ -19,10 +19,14 @@
     <% else %>
       <h2 class="text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight text-center"><%= "#{greeting}" %></h2>
     <% end %>
-    <p class="font-light font-heading text-center py-4 text-zinc-700 dark:text-zinc-300">Here is what's happening today
+    <p class="font-light font-heading text-center py-4 text-zinc-700 dark:text-zinc-300">Account Type - <%= current_user.role.humanize %>
     </p>
 
-    <div id="dashboard-boxed-links" class="grid md:grid-cols-4 grid-cols-2 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
+    <% if current_user.admin? %>
+      <div id="dashboard-boxed-links" class="grid md:grid-cols-6 grid-cols-6 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
+    <% else %>
+      <div id="dashboard-boxed-links" class="grid md:grid-cols-3 grid-cols-3 px-4 md:gap-6 gap-3 md:pt-6 pt-3 max-w-5xl mx-auto">
+    <% end %>
       <%= link_to (defined?(admin_inbox_path) ? admin_inbox_path : "#"), class: "hidden bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600" do %>
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Inbox</h3>
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
@@ -42,19 +46,33 @@
         <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Agreements</h3>
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @agreements.count %></p>
       <% end %>
+
+      <% if current_user.admin? %>
+        <%= link_to '#', class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
+          <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Users</h3>
+          <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @users.count %></p>
+        <% end %>
+        <%= link_to '#', class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
+          <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Landlords</h3>
+          <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @landlords.count %></p>
+        <% end %>
+        <%= link_to '#', class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
+          <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Tenants</h3>
+          <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @tenants.count %></p>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
 
-<div class="container mx-auto px-4 pt-16">
-  <div class="flex md:justify-between justify-center items-center flex-wrap">
-    <div id="properties-pill" class="flex items-center space-x-3 flex-1 md:mb-0 mb-3">
-      <%= link_to properties_path do %>
-        <button type="button" class="btn btn-primary">
-          Properties (<%= @properties.count %>)
-        </button>
-      <% end %>
-    </div>
+<div id="properties" class="container mx-auto px-4 pt-16">
+   <div class="md:flex items-center justify-between">
+    <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Properties</h1>
+    <% if current_user.admin? || current_user.landlord? %>
+      <div class="md:flex items-center md:space-x-6">
+        <%= link_to "Create Property", new_property_path, class: "btn btn-primary md:mt-0 mt-6" %>
+      </div>
+    <% end %>
   </div>
 
   <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-8">
@@ -78,6 +96,80 @@
       </div>
     </div>
   <% end %>
+  </div>
+</div>
+
+
+<div id="agreements" class="container mx-auto px-4 md:py-16 py-6 md:mb-16">
+  <div class="md:flex items-center justify-between">
+    <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreements</h1>
+    <% if current_user.admin? || current_user.landlord? %>
+      <div class="md:flex items-center md:space-x-6">
+        <%= link_to "Create Agreement", new_agreement_path, class: "btn btn-primary md:mt-0 mt-6" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="my-6 font-heading" data-controller="tabs"
+    data-tabs-active-tab="border-b border-primary-600 inline-block bg-white text-primary-600 dark:bg-zinc-700 dark:text-white dark:border-primary-400 rounded-t">
+
+    <%= render 'agreements/table_nav' %>
+
+    <!-- All Agreements -->
+    <div class="hidden p-4" data-tabs-target="panel">
+      <div class="overflow-visible">
+        <table class="w-full text-left text-sm min-w-full border-collapse">
+          <%= render 'agreements/table_header' %>
+          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+          <% @agreements.each do |agreement| %>
+              <%= render 'agreements/table_rows', agreement: agreement %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Current Agreements-->
+    <div class="p-4" data-tabs-target="panel">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm min-w-full border-collapse">
+          <%= render 'agreements/table_header' %>
+          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+           <% @current_agreements.each do |agreement| %>
+              <%= render 'agreement/table_rows', agreement: agreement %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Upcoming Agreements for Renewal-->
+    <div class="p-4" data-tabs-target="panel">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm min-w-full border-collapse">
+          <%= render 'agreements/table_header' %>
+          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+           <% @upcoming_renewals.each do |agreement| %>
+              <%= render 'agreements/table_rows', agreement: agreement %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Expired Agreements -->
+    <div class="hidden p-4" data-tabs-target="panel">
+       <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm min-w-full border-collapse">
+          <%= render 'agreements/table_header' %>
+          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+              <% @expired_agreements.each do |agreement| %>
+              <%= render 'agreements/table_rows', agreement: agreement %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
   
