@@ -37,7 +37,7 @@
         <% if current_user.admin? %>
           <%= link_to "Message Tenant", agreement_path(@agreement), class: "btn btn-primary" %>
           <%= link_to "Message Landlord", agreement_path(@agreement), class: "btn btn-primary" %>
-          <%= link_to "Open Repair Case", edit_agreement_path(@agreement), class: "btn btn-white" %>
+          <%= link_to "Open Repair Case", agreement_path(@agreement), class: "btn btn-white" %>
         <% elsif current_user == @property.current_agreement&.tenant %>
           <%= link_to "Message Landlord", agreement_path(@agreement), class: "btn btn-primary" %>
           <%= link_to "Open Repair Case", agreement_path(@agreement), class: "btn btn-white" %>

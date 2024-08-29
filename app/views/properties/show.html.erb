@@ -113,9 +113,9 @@
       <div>
         <div class="flex items-center space-x-3">
           <%= icon "calendar-days", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Agreement</p>
+          <p class="font-heading dark:text-zinc-50">Status</p>
         </div>
-        <span class="pl-8 text-zinc-600 dark:text-zinc-300">12 Months</span>
+        <span class="pl-8 text-zinc-600 dark:text-zinc-300">Vacant/Tenanted</span>
       </div>
 
       <div>
@@ -133,34 +133,23 @@
         </div>
         <span class="pl-8 text-zinc-600 dark:text-zinc-300">31/12/2024</span>
       </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 pb-24 pt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
 
       <div>
         <div class="flex items-center space-x-3">
-          <%= icon "banknotes", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Monthly Rent</p>
+          <%= icon "clock", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Notes</p>
         </div>
-        <span class="pl-8 text-zinc-600 dark:text-zinc-300">£850</span>
+        <span class="pl-8 text-zinc-600 dark:text-zinc-300">Lorem ipsum odor amet, consectetuer adipiscing elit. Odio nunc feugiat lectus tincidunt tortor, ad per. Imperdiet hac vulputate efficitur molestie cubilia. Sit lorem suscipit adipiscing leo ornare tortor. Sociosqu purus fames elementum, montes taciti orci. Commodo litora cras augue nascetur imperdiet accumsan. Euismod sollicitudin facilisis suscipit integer dictum; mollis montes.</span>
       </div>
+
       <div>
-        <div class="flex items-center space-x-3">
-          <%= icon "user-group", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Tenants</p>
-        </div>
-        <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Name</span>
-      </div>
-      <div>
-        <div class="flex items-center space-x-3">
-          <%= icon "sparkles", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Deposit</p>
-        </div>
-        <span class="pl-8 text-zinc-600 dark:text-zinc-300">£950</span>
-      </div>
-      <div>
-        <div class="flex items-center space-x-3">
-          <%= icon "information-circle", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Notice Period</p>
-        </div>
-        <span class="pl-8 text-zinc-600 dark:text-zinc-300">1 Month</span>
+        <div class="flex items-center space-x-3 rounded">
+          <%= js_map [{latitude: 37.7829, longitude: -122.4190}] %>
       </div>
     </div>
   </div>
