@@ -96,7 +96,6 @@ class PageController < ApplicationController
 			@agreements = @agreements_as_landlord + @agreements_as_tenant
 			owned_properties = Property.where(owner_id: current_user.id)
 			tenant_property_ids = Agreement.where(tenant_id: current_user.id).pluck(:property_id).uniq
-			tenant_properties = Property.where(id: tenant_property_ids)
 			@properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
 			@agreements = Agreement.all
 
