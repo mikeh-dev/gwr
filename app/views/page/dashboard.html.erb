@@ -136,7 +136,7 @@
           <%= render 'agreements/table_header' %>
           <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
            <% @current_agreements.each do |agreement| %>
-              <%= render 'agreement/table_rows', agreement: agreement %>
+              <%= render 'agreements/table_rows', agreement: agreement %>
             <% end %>
           </tbody>
         </table>

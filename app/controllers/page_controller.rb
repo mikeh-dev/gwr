@@ -78,35 +78,26 @@ class PageController < ApplicationController
 	end
 
 	def dashboard
-		@agreements = Agreement.all
-
 		if current_user.admin?
 			@users = User.all.not_admin
 			@landlords = User.where(role: 'landlord')
 			@tenants = User.where(role: 'tenant')
 			@properties = Property.all
+	
 			@agreements = Agreement.all
-
-			@current_agreements = @agreements.where("end_date >= ? AND (landlord_id = ? OR tenant_id = ?)", Date.today, current_user.id, current_user.id)
-			@upcoming_renewals = @current_agreements.select { |agreement| agreement.renewal_date <= Date.today + 90 }
-			@expired_agreements = @agreements.where("end_date < ? AND (landlord_id = ? OR tenant_id = ?)", Date.today, current_user.id, current_user.id)
 		else
-			@agreements_as_landlord = current_user.agreements_as_landlord.exists? ? current_user.agreements_as_landlord : []
-			@agreements_as_tenant = current_user.agreements_as_tenant.exists? ? current_user.agreements_as_tenant : []
-			@agreements = @agreements_as_landlord + @agreements_as_tenant
+			@agreements = Agreement.where("landlord_id = ? OR tenant_id = ?", current_user.id, current_user.id)
+	
 			owned_properties = Property.where(owner_id: current_user.id)
-			tenant_property_ids = Agreement.where(tenant_id: current_user.id).pluck(:property_id).uniq
-			tenant_properties = Property.where(id: tenant_property_ids)
+			tenant_property_ids = @agreements.pluck(:property_id).uniq
 			@properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
-			@agreements = Agreement.all
-
-			@current_agreements = @agreements.where("end_date >= ? AND (landlord_id = ? OR tenant_id = ?)", Date.today, current_user.id, current_user.id)
-			@upcoming_renewals = @current_agreements.select { |agreement| agreement.renewal_date <= Date.today + 90 }
-			@expired_agreements = @agreements.where("end_date < ? AND (landlord_id = ? OR tenant_id = ?)", Date.today, current_user.id, current_user.id)
 		end
-		
-		render layout: 'admin'
+	
+		@current_agreements = @agreements.where("end_date >= ?", Date.today)
+		@upcoming_renewals = @current_agreements.select { |agreement| agreement.renewal_date <= Date.today + 90 }
+		@expired_agreements = @agreements.where("end_date < ?", Date.today)
 	end
+	
 
 	def pricing
 	end

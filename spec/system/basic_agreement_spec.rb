@@ -19,7 +19,7 @@ require 'rails_helper'
 
             it "allows them to access agreements index" do
                 visit admin_dashboard_path
-                expect(page).to have_content('Agreements', count: 2)
+                expect(page).to have_content('Agreements', count: 3)
                 within('#main-summary') do
                     click_link 'Agreements'
                 end
@@ -98,20 +98,13 @@ require 'rails_helper'
             end
 
             it "allows them to access agreements index" do
-                visit admin_dashboard_path
-                expect(page).to have_content('Agreements', count: 2)
-                within('#main-summary') do
-                    click_link 'Agreements'
-                end
+                visit agreements_path
                 expect(page).to have_content('Agreements')
                 expect(page).to have_content('Create Agreement')
             end
 
             it "allows them to view all agreements in index" do
                 visit admin_dashboard_path
-                within('#main-summary') do
-                    click_link 'Agreements'
-                end
                 expect(page).to have_content("Agreements")
                 expect(page).to have_content(agreement1.agreement_number)
                 expect(page).to have_content(agreement2.agreement_number)
@@ -126,9 +119,6 @@ require 'rails_helper'
 
             it "allows them to create a new agreement" do
                 visit admin_dashboard_path
-                within('#main-summary') do
-                    click_link 'Agreements'
-                end
                 click_link 'Create Agreement'
                 expect(page).to have_content('New Agreement')
 
