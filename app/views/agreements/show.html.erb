@@ -15,12 +15,12 @@
     <div class="flex flex-wrap items-center justify-between pb-6 md:pb-0">
       <div class="flex items-center space-x-3 mb-6 flex-1">
         <% if @agreement.move_in_images.attached? %>
-          <%= image_tag @agreement.agreement_images.first, alt: "Property image", class: "w-16 h-16 rounded-full border-2 border-white" %>
+          <%= image_tag @agreement.move_in_images.first, alt: "Property image", class: "w-16 h-16 rounded-full border-2 border-white" %>
         <% else %>
           <%= image_tag "https://via.placeholder.com/150", alt: "Property image", class: "w-16 h-16 rounded-full border-2 border-white" %>
         <% end %>
         <div>
-          <h1 class="pb-1 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight"><%= @agreement.agreement_number %></h1>
+          <h1 class="pb-1 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreement Number - <%= @agreement.agreement_number %></h1>
           <div class="text-sm text-zinc-600 pl-1 pb-1 dark:text-zinc-400">
             <% if current_user == @agreement.tenant %>
              <%= link_to "View Landlord", agreement_path(@agreement), class: "underline text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-600" %>
@@ -78,7 +78,7 @@
       <div>
         <div class="flex items-center space-x-3">
           <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Address</p>
+          <p class="font-heading dark:text-zinc-50">Property Address</p>
         </div>
         <div class="grid grid-cols-1 gap-x-3 gap-y-4">
           <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @agreement.property.address%></span>
@@ -116,7 +116,6 @@
         </div>
         <span class="pl-8 text-zinc-600 dark:text-zinc-300">12 Months</span>
       </div>
-
       <div>
         <div class="flex items-center space-x-3">
           <%= icon "clock", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
@@ -143,9 +142,9 @@
       <div>
         <div class="flex items-center space-x-3">
           <%= icon "user-group", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
-          <p class="font-heading dark:text-zinc-50">Tenants</p>
+          <p class="font-heading dark:text-zinc-50">Tenancy Agreement</p>
         </div>
-        <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Name</span>
+        <span class="pl-8 text-zinc-600 dark:text-zinc-300 underline">Click to Download</span>
       </div>
       <div>
         <div class="flex items-center space-x-3">
@@ -162,4 +161,33 @@
         <span class="pl-8 text-zinc-600 dark:text-zinc-300">1 Month</span>
       </div>
     </div>
+  </div>
+
+  <div class="container mx-auto px-4 pb-24 pt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Notes</p>
+        </div>
+        <span class="pl-8 text-zinc-600 dark:text-zinc-300">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+      </div>
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "information-circle", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Move in Condition</p>
+        </div>
+        <span class="pl-8 text-zinc-600 dark:text-zinc-300 underline">Download / Upload</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 pb-24 pt-8">
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8">
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Case History</p>
+        </div>
+      </div>
   </div>
