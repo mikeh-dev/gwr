@@ -49,6 +49,9 @@ application.register("pricing", PricingController)
 import PropertiesController from "./properties_controller"
 application.register("properties", PropertiesController)
 
+import RemoveImageController from "./remove_image_controller"
+application.register("remove-image", RemoveImageController)
+
 import ScrollSpyController from "./scroll_spy_controller"
 application.register("scroll-spy", ScrollSpyController)
 

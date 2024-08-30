@@ -30,7 +30,12 @@ Rails.application.routes.draw do
   devise_for :users
 	resources :users, only: [:show]
 
-	resources :properties
+	resources :properties do
+		member do
+			delete 'remove_image/:image_id', to: 'properties#remove_image', as: 'remove_image_property'
+		end
+	end
+	
 	resources :agreements
 
 end
