@@ -66,8 +66,7 @@
 
     <div class="grid grid-cols-2 gap-4">
       <% @property.property_images.each_with_index do |image, index| %>
-          <% next if index == 0 %> <!-- Skip the first image -->
-
+          <% next if index == 0 %> <!-- Skip the first image as this is displayed above -->
           <%= image_tag url_for(image), class: "rounded-xl w-full object-cover lg:h-[248px] h-[140px]" %>
       <% end %>
     </div>

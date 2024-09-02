@@ -31,9 +31,7 @@ Rails.application.routes.draw do
 	resources :users, only: [:show]
 
 	resources :properties do
-		member do
-			delete 'remove_image/:image_id', to: 'properties#remove_image', as: 'remove_image_property'
-		end
+		delete :remove_image, on: :member
 	end
 	
 	resources :agreements
