@@ -83,10 +83,15 @@
 
     <!-- Move in Images -->
     <div class="form-group">
-      <%= form.label :move_in_images, class: "form-label" %>
-      <%= form.label class: "block" do %>
-        <%= form.file_field :move_in_images, multiple: true, class: "form-file" %>
-      <% end %>
+      <%= form.label :move_in_images, "Add New Photos", class: "form-label" %>
+        <% if @agreement.move_in_images.attached? %>
+          <% @agreement.move_in_images.each do |image| %>
+            <%= form.hidden_field :move_in_images, multiple: true, value: image.signed_id %>
+            <%= image_tag image, class: "w-16 h-16 rounded-full border-2 border-white" %>
+            <%= link_to "Remove", remove_image_agreement_path(image), data: { confirm: 'Are you sure?', turbo_method: :delete }, class: "text-red-500" %>
+          <% end %>
+        <% end %>
+      <%= form.file_field :move_in_images, multiple: true, class: "form-file" %>
     </div>
 
     <!-- Hidden Fields for IDs -->

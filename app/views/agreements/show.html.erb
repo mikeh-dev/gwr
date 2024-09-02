@@ -44,7 +44,7 @@
         <% elsif current_user == @property.landlord %>
           <%= link_to "Message Tenant", agreement_path(@agreement), class: "btn btn-primary" %>
           <%= link_to "Open Repair Case", agreement_path(@agreement), class: "btn btn-white" %>
-          <%= link_to "Edit Property", edit_agreement_path(@agreement), class: "btn btn-white" %>
+          <%= link_to "Edit Agreement", edit_agreement_path(@agreement), class: "btn btn-white" %>
         <% end %>
       </div>
     </div>
@@ -74,7 +74,7 @@
 </div>
 
 <div class="container mx-auto px-4 pb-24 pt-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 <% if current_user.admin %> grid-cols-1 md:grid-cols-3 <% end %> gap-x-6 gap-y-8">
       <div>
         <div class="flex items-center space-x-3">
           <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
@@ -84,6 +84,42 @@
           <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @agreement.property.address%></span>
           <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @agreement.property.city %></span>
           <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @agreement.property.postcode %></span>
+        </div>
+      </div>
+      <% if current_user == @agreement.tenant %>
+      <div>
+          <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Landlord Details</p>
+        </div>
+        <div class="grid grid-cols-1 gap-x-3 gap-y-4">
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @agreement.landlord.name %></span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Landlord Email Address</span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Landlord Contact Number</span>
+        </div>
+      </div>
+        <% elsif current_user == @agreement.landlord %>
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Tenant Details</p>
+        </div>
+        <div class="grid grid-cols-1 gap-x-3 gap-y-4">
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300"><%= @agreement.tenant.name %></span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Email Address</span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Contact Number</span>
+        </div>
+      </div>
+      <% elsif current_user.admin? %>
+      <div>
+        <div class="flex items-center space-x-3">
+          <%= icon "home-modern", classes: "w-5 h-5 text-zinc-500 dark:text-zinc-300" %>
+          <p class="font-heading dark:text-zinc-50">Landlord Details</p>
+        </div>
+        <div class="grid grid-cols-1 gap-x-3 gap-y-4">
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300"><% @agreement.landlord.name %></span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Landlord Email Address</span>
+          <span class="pl-8 text-zinc-600 dark:text-zinc-300">Landlord Contact Number</span>
         </div>
       </div>
       <div>
@@ -97,6 +133,7 @@
           <span class="pl-8 text-zinc-600 dark:text-zinc-300">Tenant Contact Number</span>
         </div>
       </div>
+      <% end %>
   </div>
 </div>
 

@@ -12,7 +12,7 @@ class AgreementPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin?
+    user.admin? || user == record.landlord
   end
 
   def destroy?

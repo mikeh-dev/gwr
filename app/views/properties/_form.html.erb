@@ -66,9 +66,8 @@
       </div>
     </div>
 
-    <!-- New Photos Section -->
     <div class="form-group">
-      <%= form.label :property_images, "Add New Photos", class: "block mb-2 text-sm font-medium text-gray-500" %>
+      <%= form.label :property_images, "Add New Photos", class: "form-label" %>
         <% if @property.property_images.attached? %>
           <% @property.property_images.each do |image| %>
             <%= form.hidden_field :property_images, multiple: true, value: image.signed_id %>
@@ -76,7 +75,7 @@
             <%= link_to "Remove", remove_image_property_path(image), data: { confirm: 'Are you sure?', turbo_method: :delete }, class: "text-red-500" %>
           <% end %>
         <% end %>
-      <%= form.file_field :property_images, multiple: true, class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" %>
+      <%= form.file_field :property_images, multiple: true, class: "form-file" %>
     </div>
 
     <div class="form-group">
