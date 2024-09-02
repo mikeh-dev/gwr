@@ -70,15 +70,15 @@ require 'rails_helper'
                 visit agreement_path(agreement1)
                 expect(page).to have_content('Agreement')
                 expect(page).to have_content(agreement1.length)
-                expect(page).to have_content(agreement1.formatted_start_date)
-                expect(page).to have_content(agreement1.formatted_end_date)
+                expect(page).to have_content(agreement1.start_date)
+                expect(page).to have_content(agreement1.end_date)
                 expect(page).to have_content(agreement1.notice_period)
                 expect(page).to have_content(agreement1.monthly_rent_amount)
             end
 
-            it "does not allow them to edit an agreement" do
+            it "allows them to edit an agreement" do
                 visit edit_agreement_path(agreement1)
-                expect(page).to have_content('You are not authorized to access this page.')
+                expect(page).to have_content('Edit Agreement')
             end
 
             it "does not allow them to delete an agreement" do
