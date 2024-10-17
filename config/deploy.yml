@@ -6,7 +6,7 @@ image: mikeh112/gwr
 
 # Deploy to these servers.
 servers:
-    - ec2-user@18.234.115.109
+    - ec2-user@ec2-107-23-90-171.compute-1.amazonaws.com
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -26,6 +26,7 @@ registry:
   username: mikeh112
   password:
     - KAMAL_REGISTRY_PASSWORD
+  
 
 # Configure builder setup.
 builder:
