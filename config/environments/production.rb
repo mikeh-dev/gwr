@@ -6,7 +6,7 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  config.hosts = ec2-107-23-90-171.compute-1.amazonaws.com
+  config.hosts << "ec2-107-23-90-171.compute-1.amazonaws.com"
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
