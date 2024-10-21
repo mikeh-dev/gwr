@@ -9,6 +9,9 @@ The basic outline was to create a platform where a landlord could create a prope
 The secondary feature was to enable the tenant to report issues with the property and to enable the landlord to manage these issues. Both the tenant and landlord would have a dashboard to enable them to manage the tenancy, view cases and messages.
 
 ### Current Status
+
+Unfinished - No recfactoring or performance improvements have been made.
+
 The project is currently in the very early stages of development and is not yet functional. The basic property and agreement functionality is there but there is no tenant facing side and no issue reporting.
 
 Technologies used:
