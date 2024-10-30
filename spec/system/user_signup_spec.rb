@@ -27,4 +27,56 @@ RSpec.feature "User Signup", type: :feature do
     
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
+
+  scenario "User attempts to sign up with invalid email format" do
+    visit new_user_registration_path
+    fill_in "First name", with: "Test"
+    fill_in "Last name", with: "User"
+    fill_in "Email", with: "invalid-email"
+    select 'Landlord', from: 'user_role'
+    fill_in "Password", with: "password123"
+    fill_in "Password confirmation", with: "password123"
+    click_button "Sign up"
+    
+    expect(page).to have_content("Email is invalid")
+  end
+
+  scenario "User attempts to sign up with too short password" do
+    visit new_user_registration_path
+    fill_in "First name", with: "Test"
+    fill_in "Last name", with: "User"
+    fill_in "Email", with: "test@example.com"
+    select 'Landlord', from: 'user_role'
+    fill_in "Password", with: "short"
+    fill_in "Password confirmation", with: "short"
+    click_button "Sign up"
+    
+    expect(page).to have_content("Password is too short")
+  end
+
+  scenario "User attempts to sign up without selecting a role" do
+    visit new_user_registration_path
+    fill_in "First name", with: "Test"
+    fill_in "Last name", with: "User"
+    fill_in "Email", with: "test@example.com"
+    fill_in "Password", with: "password123"
+    fill_in "Password confirmation", with: "password123"
+    click_button "Sign up"
+    
+    expect(page).to have_content("Role can't be blank")
+  end
+
+  scenario "User attempts to sign up with already taken email" do
+    User.create(first_name: "Test", last_name: "User", email: "test@example.com", role: "landlord", password: "password123")
+    visit new_user_registration_path
+    fill_in "First name", with: "Test"
+    fill_in "Last name", with: "User"
+    fill_in "Email", with: "test@example.com"
+    select 'Landlord', from: 'user_role'
+    fill_in "Password", with: "password123"
+    fill_in "Password confirmation", with: "password123"
+    click_button "Sign up"
+    
+    expect(page).to have_content("Email has already been taken")
+  end
 end
