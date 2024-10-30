@@ -46,7 +46,7 @@ class PropertiesController < ApplicationController
   def remove_image
     @image = ActiveStorage::Attachment.find(params[:id])
     @image.purge_later
-    redirect_back(fallback_location: request.referer)
+    redirect_back(fallback_location: request.referer, notice: 'Image was successfully removed.')
   end
 
   private

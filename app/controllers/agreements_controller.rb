@@ -66,12 +66,7 @@ class AgreementsController < ApplicationController
     @image = ActiveStorage::Attachment.find(params[:id])
     @image.purge_later
     redirect_back(fallback_location: request.referer, notice: 'Image was successfully removed.')
-      rescue Pundit::NotAuthorizedError
-        redirect_back(fallback_location: request.referer, alert: 'You are not authorized to remove this image.')
-      rescue ActiveRecord::RecordNotFound
-        redirect_back(fallback_location: request.referer, alert: 'Image not found.')
-      rescue StandardError => e
-        redirect_back(fallback_location: request.referer, alert: "An error occurred: #{e.message}")
+    
   end
 
   private
