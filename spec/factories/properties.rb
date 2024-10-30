@@ -6,7 +6,5 @@ FactoryBot.define do
     city { 'Sample City' }
     property_type { :house }
     notes { 'Sample notes' }
-    
-    association :owner_id, factory: :user, role: 'landlord'
   end
 end

@@ -83,15 +83,14 @@
       <%= form.text_area :notes, class: "form-textarea w-full" %>
     </div>
 
-    <div class="grid grid-cols-2 gap-6 pt-10">
-      <%= link_to "Go Back", (defined?(properties_path) ? properties_path : admin_dashboard_path), class: "btn btn-white text-center" %>
-      
+    <div class="grid grid-cols-3 gap-6 pt-10">
+      <%= link_to "Go Back", (defined?(properties_path) ? properties_path : admin_dashboard_path), class: "btn btn-white w-full" %>
       <%= form.submit "Save Property", class: "btn btn-secondary w-full" %>
-      
-      <% if action_name == "edit" %>
-        <div class="flex justify-end mt-6">
-          <%= link_to "Delete Property", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-primary w-full" %>
-        </div>
+   
+      <% if current_user.admin? %>
+        <%= link_to "Delete Property", property_path(@property), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-primary w-full" %>
+      <% else %>
+        <%= link_to "Request to Delete Property", '#', class: "btn btn-primary w-full" %>
       <% end %>
     </div>
   </div>

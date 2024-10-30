@@ -67,7 +67,7 @@ RSpec.feature "User Signup", type: :feature do
   end
 
   scenario "User attempts to sign up with already taken email" do
-    User.create(first_name: "Test", last_name: "User", email: "test@example.com", role: "landlord", password: "password123")
+    create(:user, email: "test@example.com")
     visit new_user_registration_path
     fill_in "First name", with: "Test"
     fill_in "Last name", with: "User"

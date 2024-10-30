@@ -1,18 +1,10 @@
 class Agreement < ApplicationRecord
   belongs_to :property
-  belongs_to :landlord, class_name: 'User'
-  belongs_to :tenant, class_name: 'User'
+  delegate :landlord, to: :property
+  belongs_to :tenant, class_name: 'User' 
 
-  validates :property, presence: true
-  validates :tenant, presence: true
+  validates :property, :tenant, :start_date, :end_date, :notice_period, :monthly_rent_amount, presence: true
 
-  validates :landlord, presence: true
-  validates :start_date, presence: true
-  validates :end_date, presence: true
-  validates :notice_period, presence: true
-  validates :monthly_rent_amount, presence: true
-
-  validates :length, :start_date, :end_date, :notice_period, :monthly_rent_amount, :property_id, :landlord_id, :tenant_id, :agreement_number, presence: true
   validate :validate_roles
 
   has_many_attached :move_in_images

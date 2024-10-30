@@ -1,14 +1,10 @@
 require 'rails_helper'
 
-
-
-
-
 RSpec.describe Agreement, type: :model do
   describe 'associations' do
     it { should belong_to(:property) }
-    it { should belong_to(:landlord).class_name('User') }
     it { should belong_to(:tenant).class_name('User') }
+    it { should delegate_method(:landlord).to(:property) }
   end
 
   describe 'validations' do

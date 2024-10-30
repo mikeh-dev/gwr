@@ -1,13 +1,14 @@
 require 'rails_helper'
 
     RSpec.describe "Basic Agreement", type: :system do
-        let(:landlord) { create(:user, role: :landlord) }
-        let(:agreement1) { create(:agreement, landlord: landlord, tenant: tenant, property: property, agreement_number: "1234") }
-        let(:agreement2) { create(:agreement, landlord: another_landlord, tenant: tenant, property: property, agreement_number: "5678") }
-        let(:property) { create(:property, title: 'Old Title', landlord: landlord) }
         let(:tenant) { create(:user, role: :tenant) }
-        let(:another_landlord) { create(:user, role: :landlord) }
         let(:admin) { create(:user, role: :admin) }
+        let(:landlord) { create(:user, role: :landlord) }
+        let(:landlord2) { create(:user, role: :landlord) }
+        let(:property) { create(:property, title: 'Old Title', landlord: landlord) }
+        let(:property2) { create(:property, title: 'New Title', landlord: landlord2) }
+        let(:agreement1) { create(:agreement, :current, tenant: tenant, property: property, agreement_number: "1234") }
+        let(:agreement2) { create(:agreement, :expired, tenant: tenant, property: property2, agreement_number: "5678") }
     
         context "when user is signed in as landlord" do
 

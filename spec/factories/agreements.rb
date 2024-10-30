@@ -7,20 +7,14 @@ FactoryBot.define do
     association :property
     association :tenant, factory: :user
 
-    transient do
-      overlap_buffer { 1.day } # Buffer to avoid overlap
+    trait :current do
+      start_date { Date.today }
+      end_date { Date.today + 12.months }
     end
 
-    after(:build) do |agreement, evaluator|
-      last_agreement = agreement.property.agreements.order(end_date: :desc).first
-
-      if last_agreement
-        agreement.start_date = last_agreement.end_date + evaluator.overlap_buffer
-        agreement.end_date = agreement.start_date + agreement.length.months
-      else
-        agreement.start_date = Date.today
-        agreement.end_date = Date.today + agreement.length.months
-      end
+    trait :expired  do
+      start_date { Date.today - 12.months }
+      end_date { Date.today - 1.month }
     end
   end
 end

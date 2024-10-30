@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_22_201335) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_30_145334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,12 +59,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_22_201335) do
     t.integer "notice_period"
     t.decimal "monthly_rent_amount"
     t.bigint "property_id", null: false
-    t.bigint "landlord_id", null: false
     t.bigint "tenant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agreement_number", null: false
-    t.index ["landlord_id"], name: "index_agreements_on_landlord_id"
     t.index ["property_id"], name: "index_agreements_on_property_id"
     t.index ["tenant_id"], name: "index_agreements_on_tenant_id"
   end
@@ -101,7 +99,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_22_201335) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agreements", "properties"
-  add_foreign_key "agreements", "users", column: "landlord_id"
   add_foreign_key "agreements", "users", column: "tenant_id"
   add_foreign_key "properties", "users", column: "owner_id"
 end
