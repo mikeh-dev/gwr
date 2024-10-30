@@ -138,14 +138,5 @@ require 'rails_helper'
                 click_button 'Save Agreement'
                 expect(page).to have_content('Agreement was successfully created.')
             end
-
-            it "allows them to delete an agreement" do
-                visit agreements_path
-                within(all('.relative.md\\:flex.md\\:justify-end.justify-start').first) do
-                    find('button#agreement-row-dropdown').click
-                    find('a', text: 'Delete Agreement').click
-                end
-                expect(page).to have_content('Edit Agreement')
-            end
         end
     end

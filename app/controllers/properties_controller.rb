@@ -9,6 +9,8 @@ class PropertiesController < ApplicationController
   
   def show
     authorize @property
+  rescue Pundit::NotAuthorizedError
+    redirect_to root_path, alert: 'You are not authorized to access this page.'
   end
 
   def new
@@ -28,6 +30,7 @@ class PropertiesController < ApplicationController
   end
 
   def edit
+    authorize @property
   end
 
   def update
@@ -37,12 +40,6 @@ class PropertiesController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
-  def destroy
-    @property.destroy
-    redirect_to properties_path, notice: 'Property was successfully deleted.'
-  end
-  
   def remove_image
     @image = ActiveStorage::Attachment.find(params[:id])
     @image.purge_later

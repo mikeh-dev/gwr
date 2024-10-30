@@ -5,13 +5,13 @@
                   <p><small class="text-zinc-500 dark:text-zinc-400 font-sans"><%= agreement.tenant.full_name %></small></p>
                 </td>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100">
-                  <p><%= agreement.formatted_start_date %></p>
+                  <p><%= formatted_date(agreement.start_date) %></p>
                 </td>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans">
-                  <p><%= agreement.formatted_end_date %></p>
+                  <p><%= formatted_date(agreement.end_date) %></p>
                 </td>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans">
-                  <p><%= agreement.formatted_renewal_date %></p>
+                  <p><%= formatted_date(agreement.renewal_date) %></p>
                 </td>
                 <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans">
                   <p><%= agreement.property.title %></p>

@@ -5,8 +5,8 @@ RSpec.describe 'Property CRUD', type: :system do
   let!(:landlord2) { create(:user, :landlord) }
   let!(:admin) { create(:user, :admin) }
   let!(:tenant) { create(:user, :tenant) }
-  let!(:property) { create(:property, landlord: landlord) }
-  let!(:property2) { create(:property, landlord: landlord2) }
+  let!(:property) { create(:property, landlord: landlord, title: "Property 1") }
+  let!(:property2) { create(:property, landlord: landlord2, title: "Property 2") }
   let!(:agreement) { create(:agreement, :current, tenant: tenant, property: property) }
 
   context 'when not logged in' do
@@ -32,12 +32,6 @@ RSpec.describe 'Property CRUD', type: :system do
       login_as admin
     end
 
-    it 'allows admin user to delete a property' do
-      visit property_path(property)
-      click_link 'Delete Property'
-      expect(page).to have_content('Property was successfully deleted.')
-    end
-
     it 'allows an admin user to create a property' do
       visit new_property_path
       expect(page).to have_content('New Property')
@@ -60,7 +54,7 @@ RSpec.describe 'Property CRUD', type: :system do
 
     it 'allows an admin user to view any property' do
       visit property_path(property)
-      expect(page).to have_content('Property Details')
+      expect(page).to have_content(property.title)
     end
   end
 
@@ -92,11 +86,17 @@ RSpec.describe 'Property CRUD', type: :system do
       expect(page).to have_content('Property was successfully updated.')
     end
 
+    it 'does not allow landlord user to edit a property that is not theirs' do
+      visit edit_property_path(property2)
+      expect(page).to have_content('You are not authorized to access this page.')
+    end
+
     it 'does not allow landlord user to delete a property' do
       visit property_path(property)
       click_link 'Edit Property'
       expect(page).to have_content('Edit Property')
-      expect(page).not_to have_link('Delete Property')
+      expect(page).to have_content('Request to Delete')
+      expect(page).not_to have_content('Delete Property')
     end
   end
 

@@ -29,7 +29,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 4.0"
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "webdrivers"

@@ -1,9 +1,8 @@
 class Property < ApplicationRecord
   belongs_to :landlord, class_name: 'User', foreign_key: 'owner_id'
   has_many_attached :property_images
-  
-  # Base association with scopes
   has_many :agreements
+
   has_one :current_agreement, -> { 
     where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
   }, class_name: 'Agreement'

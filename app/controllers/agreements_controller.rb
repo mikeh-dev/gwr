@@ -6,10 +6,10 @@ class AgreementsController < ApplicationController
   
 
   def index
-    @agreements = policy_scope(Agreement)
-    @current_agreements = Agreement.where("end_date >= ? AND (landlord_id = ? OR tenant_id = ?)", Date.today, current_user.id, current_user.id)
-    @upcoming_renewals = @current_agreements.select { |agreement| agreement.renewal_date <= Date.today + 90 }
-    @expired_agreements = Agreement.where("end_date < ? AND (landlord_id = ? OR tenant_id = ?)", Date.today, current_user.id, current_user.id)
+    @agreements = policy_scope(Agreement).where('tenant_id = ? OR landlord_id = ?', current_user.id, current_user.id)
+    @upcoming_renewals = @agreements.select { |agreement| agreement.renewal_date <= Date.today + 90 }
+    @expired_agreements = @agreements.where("end_date < ?", Date.today)
+    @current_agreements = @agreements.where("end_date >= ?", Date.today)
   end
 
   def show
@@ -66,7 +66,6 @@ class AgreementsController < ApplicationController
     @image = ActiveStorage::Attachment.find(params[:id])
     @image.purge_later
     redirect_back(fallback_location: request.referer, notice: 'Image was successfully removed.')
-    
   end
 
   private
@@ -84,4 +83,7 @@ class AgreementsController < ApplicationController
   def agreement_params
     params.require(:agreement).permit(:property_id, :tenant_id, :length, :monthly_rent_amount, :start_date, :end_date, :notice_period, :agreement_number, :status, :price, move_in_images: [])
   end
+
+
+
 end

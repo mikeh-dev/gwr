@@ -97,6 +97,10 @@
     <!-- Hidden Fields for IDs -->
     <%= form.hidden_field :landlord_id, value: current_user.id %>
 
+    <% if action_name == "edit" %>
+        <%= link_to "Request to Delete", '#', class: "btn btn-white w-full" %>
+      <% end %>
+
     <div class="grid grid-cols-2 gap-6 pt-10">
       <%= link_to "Go Back", agreements_path, class: "btn btn-white text-center" %>
       <%= form.submit "Save Agreement", class: "btn btn-primary w-full" %>

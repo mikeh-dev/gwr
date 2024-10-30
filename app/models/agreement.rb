@@ -1,31 +1,27 @@
 class Agreement < ApplicationRecord
   belongs_to :property
-  delegate :landlord, to: :property
+  belongs_to :landlord, class_name: 'User'
   belongs_to :tenant, class_name: 'User' 
-
-  validates :property, :tenant, :start_date, :end_date, :notice_period, :monthly_rent_amount, presence: true
-
-  validate :validate_roles
-
   has_many_attached :move_in_images
 
-  def formatted_start_date
-    start_date.strftime("%d/%m/%y") if start_date.present?
-  end
+  validates :property, :tenant, :start_date, :end_date, :notice_period, :monthly_rent_amount, presence: true
+  validate :validate_roles
 
-  def formatted_end_date
-    end_date.strftime("%d/%m/%y") if end_date.present?
-  end
+  before_validation :set_landlord, :set_renewal_date
 
-  def renewal_date
-    end_date - notice_period.days if end_date.present?
-  end
-
-  def formatted_renewal_date
-    renewal_date.strftime("%d/%m/%y") if renewal_date.present?
-  end
+  scope :current, -> { where('end_date >= ?', Date.today) }
+  scope :expired, -> { where('end_date < ?', Date.today) }
+  scope :upcoming_renewals, -> { current.where('renewal_date <= ?', Date.today + 90.days) }
 
   private
+
+  def set_renewal_date
+    self.renewal_date = end_date - notice_period.days if end_date.present?
+  end
+ 
+  def set_landlord
+    self.landlord_id = property.owner_id
+  end
 
   def validate_roles
     errors.add(:landlord, 'must be a landlord') unless landlord&.landlord?

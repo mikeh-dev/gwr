@@ -1,7 +1,6 @@
 class PageController < ApplicationController
 	before_action :authenticate_user!, only: [:dashboard]
 
-
 	def home
 	end
 
@@ -79,26 +78,21 @@ class PageController < ApplicationController
 
 	def dashboard
 		if current_user.admin?
-			@users = User.all.not_admin
-			@landlords = User.where(role: 'landlord')
-			@tenants = User.where(role: 'tenant')
+			@users = User.not_admin
+			@landlords = User.landlords
+			@tenants = User.tenants
 			@properties = Property.all
-	
 			@agreements = Agreement.all
 		else
-			@agreements = Agreement.where("landlord_id = ? OR tenant_id = ?", current_user.id, current_user.id)
-	
-			owned_properties = Property.where(owner_id: current_user.id)
-			tenant_property_ids = @agreements.pluck(:property_id).uniq
-			@properties = Property.where(id: owned_properties.pluck(:id) + tenant_property_ids).includes(:agreements).distinct
+			@properties = current_user.properties
+			@agreements = current_user.agreements_as_tenant
 		end
 	
-		@current_agreements = @agreements.where("end_date >= ?", Date.today)
-		@upcoming_renewals = @current_agreements.select { |agreement| agreement.renewal_date <= Date.today + 90 }
-		@expired_agreements = @agreements.where("end_date < ?", Date.today)
+		@current_agreements = @agreements.current
+		@upcoming_renewals = @agreements.upcoming_renewals
+		@expired_agreements = @agreements.expired
 	end
 	
-
 	def pricing
 	end
 

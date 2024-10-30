@@ -314,7 +314,7 @@ DEPENDENCIES
   railsui!
   redis (~> 4.0)
   rspec-rails
-  selenium-webdriver
+  selenium-webdriver (~> 4.0)
   shoulda-matchers
   sprockets-rails
   stimulus-rails
