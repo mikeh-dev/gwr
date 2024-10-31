@@ -83,9 +83,12 @@ class PageController < ApplicationController
 			@tenants = User.tenants
 			@properties = Property.all
 			@agreements = Agreement.all
-		else
+		elsif current_user.landlord?
 			@properties = current_user.properties
+			@agreements = current_user.agreements_as_landlord
+		else
 			@agreements = current_user.agreements_as_tenant
+			@property = @agreements.current.first&.property
 		end
 	
 		@current_agreements = @agreements.current

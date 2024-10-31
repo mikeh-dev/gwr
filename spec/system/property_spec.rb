@@ -7,7 +7,7 @@ RSpec.describe 'Property CRUD', type: :system do
   let!(:tenant) { create(:user, :tenant) }
   let!(:property) { create(:property, landlord: landlord, title: "Property 1") }
   let!(:property2) { create(:property, landlord: landlord2, title: "Property 2") }
-  let!(:agreement) { create(:agreement, :current, tenant: tenant, property: property) }
+  let!(:agreement) { create(:agreement, :current, tenant: tenant, property: property, landlord: landlord) }
 
   context 'when not logged in' do
     it 'does not allow access to new property page' do

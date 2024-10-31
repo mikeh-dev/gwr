@@ -4,7 +4,7 @@ RSpec.describe Agreement, type: :model do
   describe 'associations' do
     it { should belong_to(:property) }
     it { should belong_to(:tenant).class_name('User') }
-    it { should delegate_method(:landlord).to(:property) }
+    it { should belong_to(:landlord).class_name('User') }
   end
 
   describe 'validations' do
@@ -19,19 +19,19 @@ RSpec.describe Agreement, type: :model do
       let(:property) { create(:property, landlord: landlord) }
 
       it 'is valid with correct roles' do
-        agreement = create(:agreement, property: property, landlord: landlord, tenant: tenant)
+        agreement = create(:agreement, :current, property: property, landlord: landlord, tenant: tenant)
         expect(agreement).to be_valid
       end
 
       it 'is invalid with incorrect landlord role' do
         agreement = build(:agreement, property: property, landlord: tenant, tenant: tenant)
-        expect(agreement).not_to be_valid
+        agreement.valid?
         expect(agreement.errors[:landlord]).to include('must be a landlord')
       end
 
       it 'is invalid with incorrect tenant role' do
         agreement = build(:agreement, property: property, landlord: landlord, tenant: landlord)
-        expect(agreement).not_to be_valid
+        agreement.valid?
         expect(agreement.errors[:tenant]).to include('must be a tenant')
       end
     end

@@ -4,7 +4,7 @@ RSpec.describe AgreementPolicy, type: :policy do
     let(:admin) { create(:user, role: 'admin') }
     let(:landlord) { create(:user, role: 'landlord') }
     let(:tenant) { create(:user, role: 'tenant') }
-    let(:agreement) { create(:agreement, landlord: landlord, tenant: tenant, property: property) }
+    let(:agreement) { create(:agreement, :current, landlord: landlord, tenant: tenant, property: property) }
     let(:property) { create(:property, landlord: landlord) }
   
     subject { described_class.new(user, agreement ) }

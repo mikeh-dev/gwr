@@ -14,7 +14,6 @@ class User < ApplicationRecord
   scope :tenants, -> { where(role: 'tenant') }
 
   has_many :properties, foreign_key: 'owner_id', class_name: 'Property'
-  has_many :rented_properties
   has_many :agreements_as_landlord, class_name: 'Agreement', foreign_key: 'landlord_id'
   has_many :agreements_as_tenant, class_name: 'Agreement', foreign_key: 'tenant_id'
 

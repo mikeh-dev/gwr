@@ -7,7 +7,7 @@ class Agreement < ApplicationRecord
   validates :property, :tenant, :start_date, :end_date, :notice_period, :monthly_rent_amount, presence: true
   validate :validate_roles
 
-  before_validation :set_landlord, :set_renewal_date
+  after_save :set_landlord, :set_renewal_date
 
   scope :current, -> { where('end_date >= ?', Date.today) }
   scope :expired, -> { where('end_date < ?', Date.today) }

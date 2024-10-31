@@ -1,20 +1,23 @@
 <li>
   <%= nav_link_to "Dashboard", send("admin_dashboard_path"), class: "nav-link" %>
 </li>
-<li>
-  <%= nav_link_to "Properties", send("properties_path"), class: "nav-link" %>
+<% if current_user.admin? || current_user.landlord? %>
+  <li>
+    <%= nav_link_to "Properties", send("properties_path"), class: "nav-link" %>
+  </li>
+<% else %>
+  <li>
+    <%= nav_link_to "My Property", send("properties_path"), class: "nav-link" %>
+  </li>
+<% end %>
+  <li>
+    <%= nav_link_to "Agreements", send("agreements_path"), class: "nav-link" %>
 </li>
 <li>
   <%= nav_link_to "Inbox", "#", class: "nav-link" %>
 </li>
 <li>
   <%= nav_link_to "Calendar", "#", class: "nav-link" %>
-</li>
-<li>
-  <%= nav_link_to "Insights", "#", class: "nav-link" %>
-</li>
-<li>
-  <%= nav_link_to "Agreements", send("agreements_path"), class: "nav-link" %>
 </li>
 <li>
   <%= nav_link_to "Help Center", send("admin_help_center_path"), class: "nav-link" %>

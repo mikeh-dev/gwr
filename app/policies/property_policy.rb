@@ -4,7 +4,7 @@ class PropertyPolicy < ApplicationPolicy
     end
   
     def show?
-     user.landlord? || user.tenant? && record.current_tenant == user || user.admin?
+     user.landlord? && record.owner_id == user.id || user.tenant? && record.current_tenant == user || user.admin?
     end
   
     def index?
@@ -12,7 +12,7 @@ class PropertyPolicy < ApplicationPolicy
     end
   
     def update?
-      user.admin? || user.landlord? && record.landlord == user
+      user.admin? || user.landlord? && record.owner_id == user.id
     end
   
     def destroy?

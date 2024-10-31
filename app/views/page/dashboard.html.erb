@@ -37,9 +37,11 @@
         <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white">0</p>
       <% end %>
 
-      <%= link_to properties_path, class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
-        <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Properties</h3>
-        <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @properties.count %></p>
+      <% if current_user.admin? || current_user.landlord? %>
+        <%= link_to properties_path, class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
+          <h3 class="font-normal text-base font-sans text-zinc-800/80 dark:text-zinc-300">Properties</h3>
+          <p class="font-heading text-4xl font-semibold text-zinc-800 dark:text-white"><%= @properties.count %></p>
+        <% end %>
       <% end %>
 
       <%= link_to agreements_path, class: "bg-white border border-zinc-300 p-4 rounded-lg shadow-sm hover:shadow-none focus:ring-4 focus:ring-zinc-100/70 md:col-span-1 col-span-2 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:border-zinc-600 dark:focus:ring-zinc-600/30" do %>
@@ -65,114 +67,151 @@
   </div>
 </div>
 
-<div id="properties" class="container mx-auto px-4 pt-16">
-   <div class="md:flex items-center justify-between">
-    <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Properties</h1>
-    <% if current_user.admin? || current_user.landlord? %>
-      <div class="md:flex items-center md:space-x-6">
-        <%= link_to "Create Property", new_property_path, class: "btn btn-primary md:mt-0 mt-6" %>
-      </div>
-    <% end %>
+<% if current_user.admin? || current_user.landlord? %>
+  <div id="properties" class="container mx-auto px-4 pt-16">
+    <div class="md:flex items-center justify-between">
+      <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Properties</h1>
+        <div class="md:flex items-center md:space-x-6">
+          <%= link_to "Create Property", new_property_path, class: "btn btn-primary md:mt-0 mt-6" %>
+        </div>
+    </div>
   </div>
-
-  <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-8">
-    <!-- Property user card 1 -->
-  <% @properties.each do |property| %>
-    <div class="border border-zinc-300/90 shadow-sm shadow-zinc-300/20 rounded-lg p-3 dark:shadow-zinc-950/50 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600">
-      <%= image_tag "property-1.jpg", alt: "Image of Alpine Retreat Haven", class: "rounded-lg h-[174px] w-full object-cover object-center shadow dark:shadow-none dark:border dark:border-zinc-600/80 border-transparent" %>
-      <div class="flex items-center space-x-3 mt-4">
-        <%= image_tag demo_avatar_url(variant: "men", id: "88"), class: "w-10 h-10 rounded-full object-cover", alt: "Noah Martinez" %>
-        <div class="flex-1">
-          <p class="font-medium dark:text-white font-heading text-zinc-900"><%= property.title %></p>
-          <p class="font-light text-sm text-zinc-600 font-heading dark:text-zinc-400"><%= property.address %></p>
-        </div>
+<% else %>
+  <% if @property.present? %>
+    <div id="properties" class="container mx-auto px-4 pt-16">
+      <div class="md:flex items-center justify-between">
+        <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">My Property</h1>
+        <div class="border border-zinc-300/90 shadow-sm shadow-zinc-300/20 rounded-lg p-3 dark:shadow-zinc-950/50 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600">
+            <%= image_tag "property-1.jpg", alt: "Image of Alpine Retreat Haven", class: "rounded-lg h-[174px] w-full object-cover object-center shadow dark:shadow-none dark:border dark:border-zinc-600/80 border-transparent" %>
+            <div class="flex items-center space-x-3 mt-4">
+              <%= image_tag demo_avatar_url(variant: "men", id: "88"), class: "w-10 h-10 rounded-full object-cover", alt: "Noah Martinez" %>
+              <div class="flex-1">
+                <p class="font-medium dark:text-white font-heading text-zinc-900"><%= @property.title %></p>
+                <p class="font-light text-sm text-zinc-600 font-heading dark:text-zinc-400"><%= @property.address %></p>
+              </div>
+            </div>
+            <div class="flex justify-between items-end pt-3">
+              <div class="flex items-center space-x-2">
+                <%= icon "map", classes: "w-5 h-5 text-zinc-500 stroke-current dark:text-zinc-300" %>
+                <span class="text-zinc-600 dark:text-zinc-400 text-sm"><%= @property.city %></span>
+              </div>
+              <%= link_to "View", property_path(@property), class: "btn btn-white" %>
+            </div>
+          </div>
       </div>
-      <div class="flex justify-between items-end pt-3">
-        <div class="flex items-center space-x-2">
-          <%= icon "map", classes: "w-5 h-5 text-zinc-500 stroke-current dark:text-zinc-300" %>
-          <span class="text-zinc-600 dark:text-zinc-400 text-sm"><%= property.city %></span>
+    </div>
+  <% else %>
+    <div id="properties" class="container mx-auto px-4 pt-16">
+      <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">You currently have no property</h1>
+    </div>
+  <% end %>
+<% end %>
+
+
+  <% if current_user.admin? || current_user.landlord? %>
+    <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-8 px-4">
+      <!-- Property user card 1 -->
+      <% @properties.each do |property| %>
+        <div class="border border-zinc-300/90 shadow-sm shadow-zinc-300/20 rounded-lg p-3 dark:shadow-zinc-950/50 dark:bg-zinc-800/90 dark:border-zinc-600/80 dark:focus:ring-zinc-600/30 dark:focus:border-zinc-600">
+          <%= image_tag "property-1.jpg", alt: "Image of Alpine Retreat Haven", class: "rounded-lg h-[174px] w-full object-cover object-center shadow dark:shadow-none dark:border dark:border-zinc-600/80 border-transparent" %>
+          <div class="flex items-center space-x-3 mt-4">
+            <%= image_tag demo_avatar_url(variant: "men", id: "88"), class: "w-10 h-10 rounded-full object-cover", alt: "Noah Martinez" %>
+            <div class="flex-1">
+              <p class="font-medium dark:text-white font-heading text-zinc-900"><%= property.title %></p>
+              <p class="font-light text-sm text-zinc-600 font-heading dark:text-zinc-400"><%= property.address %></p>
+            </div>
+          </div>
+          <div class="flex justify-between items-end pt-3">
+            <div class="flex items-center space-x-2">
+              <%= icon "map", classes: "w-5 h-5 text-zinc-500 stroke-current dark:text-zinc-300" %>
+              <span class="text-zinc-600 dark:text-zinc-400 text-sm"><%= property.city %></span>
+            </div>
+            <%= link_to "View", property_path(property), class: "btn btn-white" %>
+          </div>
         </div>
-        <%= link_to "View", property_path(property), class: "btn btn-white" %>
+      <% end %>
       </div>
     </div>
   <% end %>
-  </div>
-</div>
 
-
-<div id="agreements" class="container mx-auto px-4 md:py-16 py-6 md:mb-16">
-  <div class="md:flex items-center justify-between">
-    <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreements</h1>
-    <% if current_user.admin? || current_user.landlord? %>
-      <div class="md:flex items-center md:space-x-6">
-        <%= link_to "Create Agreement", new_agreement_path, class: "btn btn-primary md:mt-0 mt-6" %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="my-6 font-heading" data-controller="tabs"
-    data-tabs-active-tab="border-b border-primary-600 inline-block bg-white text-primary-600 dark:bg-zinc-700 dark:text-white dark:border-primary-400 rounded-t">
-
-    <%= render 'agreements/table_nav' %>
-
-    <!-- All Agreements -->
-    <div class="hidden p-4" data-tabs-target="panel">
-      <div class="overflow-visible">
-        <table class="w-full text-left text-sm min-w-full border-collapse">
-          <%= render 'agreements/table_header' %>
-          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
-          <% @agreements.each do |agreement| %>
-              <%= render 'agreements/table_rows', agreement: agreement %>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+  <% if @agreements.present? %>
+  <div id="agreements" class="container mx-auto px-4 md:py-16 py-6 md:mb-16">
+    <div class="md:flex items-center justify-between">
+      <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Agreements</h1>
+      <% if current_user.admin? || current_user.landlord? %>
+        <div class="md:flex items-center md:space-x-6">
+          <%= link_to "Create Agreement", new_agreement_path, class: "btn btn-primary md:mt-0 mt-6" %>
+        </div>
+      <% end %>
     </div>
 
-    <!-- Current Agreements-->
-    <div class="p-4" data-tabs-target="panel">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm min-w-full border-collapse">
-          <%= render 'agreements/table_header' %>
-          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
-           <% @current_agreements.each do |agreement| %>
-              <%= render 'agreements/table_rows', agreement: agreement %>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div class="my-6 font-heading" data-controller="tabs"
+      data-tabs-active-tab="border-b border-primary-600 inline-block bg-white text-primary-600 dark:bg-zinc-700 dark:text-white dark:border-primary-400 rounded-t">
 
-    <!-- Upcoming Agreements for Renewal-->
-    <div class="p-4" data-tabs-target="panel">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm min-w-full border-collapse">
-          <%= render 'agreements/table_header' %>
-          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
-           <% @upcoming_renewals.each do |agreement| %>
-              <%= render 'agreements/table_rows', agreement: agreement %>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <%= render 'agreements/table_nav' %>
 
-    <!-- Expired Agreements -->
-    <div class="hidden p-4" data-tabs-target="panel">
-       <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm min-w-full border-collapse">
-          <%= render 'agreements/table_header' %>
-          <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
-              <% @expired_agreements.each do |agreement| %>
-              <%= render 'agreements/table_rows', agreement: agreement %>
-            <% end %>
-          </tbody>
-        </table>
+      <!-- All Agreements -->
+      <div class="hidden p-4" data-tabs-target="panel">
+        <div class="overflow-visible">
+          <table class="w-full text-left text-sm min-w-full border-collapse">
+            <%= render 'agreements/table_header' %>
+            <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+            <% @agreements.each do |agreement| %>
+                <%= render 'agreements/table_rows', agreement: agreement %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Current Agreements-->
+      <div class="p-4" data-tabs-target="panel">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm min-w-full border-collapse">
+            <%= render 'agreements/table_header' %>
+            <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+            <% @current_agreements.each do |agreement| %>
+                <%= render 'agreements/table_rows', agreement: agreement %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Upcoming Agreements for Renewal-->
+      <div class="p-4" data-tabs-target="panel">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm min-w-full border-collapse">
+            <%= render 'agreements/table_header' %>
+            <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+            <% @upcoming_renewals.each do |agreement| %>
+                <%= render 'agreements/table_rows', agreement: agreement %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Expired Agreements -->
+      <div class="hidden p-4" data-tabs-target="panel">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm min-w-full border-collapse">
+            <%= render 'agreements/table_header' %>
+            <tbody class="text-zinc-800 divide-y divide-zinc-200/80 dark:divide-zinc-700">
+                <% @expired_agreements.each do |agreement| %>
+                <%= render 'agreements/table_rows', agreement: agreement %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-  
+  <% else %>
+    <div id="agreements" class="container mx-auto px-4 md:py-16 py-6 md:mb-16">
+      <h1 class="mb:mb-0 mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">You currently have no agreements</h1>
+    </div>
+  <% end %>
+
 <!-- CURRENTLY HIDDEN -->
 <div class="container mx-auto px-4 pt-16 hidden">
   <div class="md:flex items-center justify-between">
