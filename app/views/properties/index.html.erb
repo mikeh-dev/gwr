@@ -155,8 +155,10 @@
         <div class="font-medium md:w-auto md:block hidden flex-1">Property</div>
         <div class="font-medium md:w-2/12 md:block hidden">Type</div>
         <div class="font-medium md:w-2/12 md:block hidden">Renewal Due</div>
-        <% if current_user.admin? || current_user.landlord? %>
         <div class="font-medium md:w-2/12 md:block hidden">Tenant</div>
+
+        <% if current_user.admin? || current_user.landlord? %>
+         <div class="font-medium md:w-2/12 md:block hidden">Landlord</div>
         <% elsif current_user.admin? || current_user.tenant? %>
           <div class="font-medium md:w-2/12 md:block hidden">Landlord</div>
         <% end %>
