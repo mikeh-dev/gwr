@@ -5,7 +5,7 @@
   <li>
     <%= nav_link_to "Properties", send("properties_path"), class: "nav-link" %>
   </li>
-<% else %>
+<% elsif current_user.tenant? && current_user.current_property.present? %>
   <li>
     <%= nav_link_to "My Property", property_path(current_user.current_property), class: "nav-link" %>
   </li>
