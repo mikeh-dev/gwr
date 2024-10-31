@@ -10,18 +10,25 @@ The secondary feature was to enable the tenant to report issues with the propert
 
 ### Current Status
 
-Unfinished - No recfactoring or performance improvements have been made.
+Unfinished - 31/10/24
 
-The project is currently in the very early stages of development and is not yet functional. The basic property and agreement functionality is there but there is no tenant facing side and no issue reporting.
+The project is currently in the very early stages of development and is not yet functional. The basic User authentication, property and agreement functionality is there but the case reporting is not yet implemented.
 
-Technologies used:
-- Rails 7
+There is a basic dashboard for Admin, Landlord and Tenant users. There is basic view pages for agreements and properties.
+
+Users can upload images for the property and for the agreements.
+
+Pundit is used for authorization utilising the roles of Admin, Landlord and Tenant.
+
+### Technologies used:
+- Rails 7 with Hotwire
 - Ruby 3.1
 - PostgreSQL
-- Tailwind
-- Hotwire
-- Devise
-- Rspec with FactoryBot, ShouldaMatchers, Capybara, Faker
+- TailwindCSS
+- Devise for authentication
+- Pundit for authorization
+- Rspec with FactoryBot, ShouldaMatchers, Capybara, Faker for testing
+- Mapbox for the map functionality
 
  # Acknowledgements
 Once again UI was given a lift with Rails UI from Andy Leverenz. More info on that here: https://github.com/andyleverenz/rails_ui
