@@ -6,7 +6,7 @@ class AgreementsController < ApplicationController
   
 
   def index
-    @agreements = policy_scope(Agreement).where('tenant_id = ? OR landlord_id = ?', current_user.id, current_user.id)
+    @agreements = policy_scope(Agreement)
     @upcoming_renewals = @agreements.upcoming_renewals
     @expired_agreements = @agreements.where("end_date < ?", Date.today)
     @current_agreements = @agreements.where("end_date >= ?", Date.today)

@@ -7,7 +7,7 @@
   </li>
 <% else %>
   <li>
-    <%= nav_link_to "My Property", send("properties_path"), class: "nav-link" %>
+    <%= nav_link_to "My Property", property_path(current_user.current_property), class: "nav-link" %>
   </li>
 <% end %>
   <li>

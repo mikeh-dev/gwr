@@ -3,8 +3,8 @@ class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
 
   def index
-    @properties = policy_scope(Property)
     authorize Property
+    @properties = policy_scope(Property)
   end
   
   def show

@@ -24,6 +24,14 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}".strip
   end
 
+  def current_agreement
+    agreements_as_tenant.current.first
+  end
+
+  def current_property
+    current_agreement&.property
+  end
+
   private
 
   def downcase_email
