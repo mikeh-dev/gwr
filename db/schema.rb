@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_30_230551) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_04_141204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_30_230551) do
     t.index ["owner_id"], name: "index_properties_on_owner_id"
   end
 
+  create_table "repair_cases", force: :cascade do |t|
+    t.string "title"
+    t.text "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "agreement_id"
+    t.index ["agreement_id"], name: "index_repair_cases_on_agreement_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -105,4 +114,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_30_230551) do
   add_foreign_key "agreements", "users", column: "landlord_id"
   add_foreign_key "agreements", "users", column: "tenant_id"
   add_foreign_key "properties", "users", column: "owner_id"
+  add_foreign_key "repair_cases", "agreements"
 end

@@ -38,4 +38,6 @@ Rails.application.routes.draw do
 		delete :remove_image, on: :member
 	end
 
+	resources :repair_cases
+
 end
