@@ -3,5 +3,6 @@ FactoryBot.define do
         title { 'Sample Repair Case' }
         details { 'Sample details' }
         association :agreement
+        status { 0 }
     end
 end

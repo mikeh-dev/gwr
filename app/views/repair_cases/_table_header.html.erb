@@ -1,0 +1,33 @@
+       <thead>
+            <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
+              Case Number
+            </th>
+            <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
+              Reported
+              </th>
+            <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
+              Agreement
+              </th>
+            <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4 hidden lg:block">
+              Reported
+            </th>
+            <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4 hidden lg:block">
+              Status
+            </th>
+            <% if current_user.tenant? %>
+                <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
+                    Landlord
+                </th>
+            <% elsif current_user.landlord? %>
+                <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4">
+                    Tenant
+                </th>
+            <% else %>
+                <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4 hidden lg:block">
+                    Landlord
+                </th>
+                <th class="text-zinc-600 dark:text-zinc-300 font-sans font-medium md:whitespace-normal whitespace-nowrap md:px-0 p-4 hidden lg:block">
+                    Tenant
+                </th>
+            <% end %>
+          </thead>

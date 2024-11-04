@@ -83,6 +83,7 @@ class PageController < ApplicationController
 			@tenants = User.tenants
 			@properties = Property.all
 			@agreements = Agreement.all
+			@repair_cases = RepairCase.all
 		elsif current_user.landlord?
 			@properties = current_user.properties
 			@agreements = current_user.agreements_as_landlord

@@ -1,4 +1,5 @@
 class RepairCasesController < ApplicationController
+  before_action :set_agreements, only: [:new, :create]
 
   def new
     @repair_case = RepairCase.new
@@ -14,6 +15,9 @@ class RepairCasesController < ApplicationController
 
   def index
     @repair_cases = RepairCase.all
+    @current_repair_cases = RepairCase.where(status: "current")
+    @open_repair_cases = RepairCase.where(status: "open")
+    @resolved_repair_cases = RepairCase.where(status: "resolved")
   end
 
   def edit
@@ -34,5 +38,9 @@ class RepairCasesController < ApplicationController
 
   def case_params
     params.require(:repair_case).permit(:title, :description, :status)
+  end
+
+  def set_agreements
+    @agreements = current_user.admin? ? Agreement.all : current_user.agreements
   end
 end

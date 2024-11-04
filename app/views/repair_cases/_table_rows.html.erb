@@ -1,0 +1,66 @@
+<tr class="md:whitespace-normal whitespace-nowrap">
+                <td class="align-top md:px-0 p-4 md:whitespace-normal whitespace-nowrap">
+                  <p><%= link_to repair_case.title, repair_case_path(repair_case), class: "dark:text-zinc-100" %></p>
+                  <p><small class="text-zinc-500 dark:text-zinc-400 font-sans"><%= repair_case.agreement.property.title %></small></p>
+                </td>
+                <td class="align-top md:px-0 p-4 dark:text-zinc-100">
+                  <p><%= formatted_date(repair_case.created_at) %></p>
+                </td>
+                <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans">
+                  <p><%= repair_case.agreement.agreement_number %></p>
+                </td>
+                <% if current_user.admin? %>
+                <td class="align-top md:px-0 p-4 dark:text-zinc-100 font-sans hidden lg:block">
+                  <%= repair_case.agreement.landlord.full_name %>
+                </td>
+                <% end %>
+                <td class="align-top pt-2 hidden lg:block">
+                  <div data-controller="dropdown" class="relative md:flex md:justify-end justify-start">
+                    <button id="agreement-row-dropdown" class="flex relative z-40 md:w-10 md:h-9 py-3 px-4 md:px-0 md:py-0 w-full md:rounded-xl rounded-full bg-white focus:ring-4 focus:ring-zinc-300/30 items-center md:justify-center justify-between border md:border-transparent focus:border-zinc-300 border-zinc-300/80  hover:border-zinc-300  dark:hover:bg-zinc-800 dark:hover:border-zinc-600 dark:focus:bg-zinc-800 dark:focus:border-zinc-500 dark:bg-zinc-700/60 dark:text-white dark:border-zinc-500/30 dark:shadow-zinc-950/40 dark:hover:bg-zinc-800/90 dark:focus:ring-zinc-700/80 dark:focus:border-zinc-400/80"
+                      data-action="click->dropdown#toggle click@window->dropdown#hide">
+
+                      <%= icon "ellipsis-horizontal", classes: "md:block hidden stroke-current w-6 h-6 flex-shrink-0 text-zinc-600/80 dark:text-zinc-200" %>
+
+                      <span class="md:hidden block">Actions</span>
+
+                      <%= icon "chevron-down", classes: "md:hidden block w-4 h-4 stroke-current flex-shrink-0 text-zinc-600/80 dark:text-zinc-400" %>
+                    </button>
+
+                    <ul
+                      class="hidden origin-top-right absolute md:top-12 mt-3 md:mt-0 top-10 right-0 w-48 md:shadow-sm md:rounded-xl rounded-3xl py-2 shadow-zinc-300/20 z-50 bg-white md:text-[15px] text-base border dark:bg-zinc-800 dark:shadow-zinc-950/20 dark:border-zinc-600"
+                      data-transition-enter-active="transition ease-out duration-100"
+                      data-transition-enter-from="transform opacity-0 scale-95"
+                      data-transition-enter-to="transform opacity-100 scale-100"
+                      data-transition-leave-active="transition ease-in duration-100"
+                      data-transition-leave-from="transform opacity-100 scale-100"
+                      data-transition-leave-to="transform opacity-0 scale-95" data-dropdown-target="menu">
+                      <li>
+                        <%= link_to repair_case_path(repair_case), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
+                          <span>View Repair Case</span>
+                          <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to repair_case_path(repair_case), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
+                          <span>Request Amendment</span>
+                          <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
+                        <% end %>
+                      </li>
+                      <% if current_user.admin? %>
+                      <li>
+                        <%= link_to edit_repair_case_path(repair_case), class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
+                          <span>Edit Repair Case</span>
+                          <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to repair_case_path(repair_case), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 md:py-2 py-3 flex items-center justify-between hover:text-zinc-900 text-zinc-700 dark:text-zinc-200 dark:hover:text-white" do %>
+                          <span>Delete Repair Case</span>
+                          <%= icon "chevron-right", classes: "md:hidden block w-5 h-5 text-zinc-500/60 dark:text-zinc-400" %>
+                        <% end %>
+                      </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </td>
+              </tr>

@@ -1,0 +1,72 @@
+<div class="max-w-2xl mx-auto px-4 md:py-16 py-6">
+  <nav class="font-heading text-sm mb-6 text-zinc-700 dark:text-zinc-200">
+    <ul class="flex items-center space-x-3">
+      <li class="after:content-['/'] after:relative after:text-zinc-300 after:left-1 dark:after:text-zinc-500">
+        <%= link_to "Agreements", agreements_path, class: "text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-600" %>
+      </li>
+      <li>
+        <% if @repair_case.new_record? %>
+          <p>New Repair Case</p>
+        <% else %>
+          <p>Edit Repair Case</p>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+
+  <h1 class="mb-6 text-4xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">
+    <%= @repair_case.new_record? ? "New Repair Case" : "Edit Repair Case" %>
+  </h1>
+
+  <% if @repair_case.errors.any? %>
+    <div class="bg-red-100 border border-red-200 text-red-900 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-semibold">There were some errors with your submission</strong>
+      <ul class="mt-3 list-disc list-inside text-sm">
+        <% @repair_case.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with(model: @repair_case, local: true) do |form| %>
+
+    <h3 class="mb-6 pt-10 text-2xl font-semibold font-heading text-zinc-900 dark:text-zinc-100 tracking-tight">Repair Case Details</h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 form-group">
+      <!-- Details -->
+      <div>
+        <%= form.label :details, "Details", class: "form-label form-label-required" %>
+        <%= form.text_area :details, class: "form-input w-full" %>
+      </div>
+    </div>
+
+    <!-- Agreement -->
+    <div class="form-group">
+      <%= form.label :agreement_id, "Agreement", class: "form-label form-label-required" %>
+      <%= form.select :agreement_id, @agreements.map { |agreement| [agreement.agreement_number, agreement.id] }, { prompt: "Choose an agreement" }, class: "form-select w-full" %>
+    </div>
+
+    <!-- Case Images -->
+    <div class="form-group">
+      <%= form.label :repair_case_images, "Add New Photos", class: "form-label" %>
+        <% if @repair_case.repair_case_images.attached? %>
+          <% @repair_case.repair_case_images.each do |image| %>
+            <%= form.hidden_field :repair_case_images, multiple: true, value: image.signed_id %>
+            <%= image_tag image, class: "w-16 h-16 rounded-full border-2 border-white" %>
+            <%= link_to "Remove", remove_image_repair_case_path(image), data: { confirm: 'Are you sure?', turbo_method: :delete }, class: "text-red-500" %>
+          <% end %>
+        <% end %>
+      <%= form.file_field :repair_case_images, multiple: true, class: "form-file" %>
+    </div>
+
+    <% if action_name == "edit" %>
+      <%= link_to "Request to Delete", '#', class: "btn btn-white w-full" %>
+    <% end %>
+
+    <div class="grid grid-cols-2 gap-6 pt-10">
+      <%= link_to "Go Back", repair_cases_path, class: "btn btn-white text-center" %>
+      <%= form.submit "Save Repair Case", class: "btn btn-primary w-full" %>
+    </div>
+  <% end %>
+</div>
